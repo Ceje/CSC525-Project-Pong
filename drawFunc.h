@@ -13,3 +13,10 @@
 void initQuadMenu();
 void emptyDisplay();
 void quadMenuDisplay();
+void quad();
+void doubles();
+void threeway();
+void classic();
+void playerMenuInit();
+void playerMenuDisplay();
+void timerDisplay();

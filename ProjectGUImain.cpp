@@ -43,7 +43,7 @@
 using namespace std;
 int mWidth=1000;
 int mHeight=1000;
-int windows[10];
+int windows[15];
 
 
 

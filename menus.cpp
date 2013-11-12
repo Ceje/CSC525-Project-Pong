@@ -7,15 +7,12 @@ using namespace std;
 
 
 extern int mWidth, mHeight;
-extern int windows[10];
+extern int windows[15];
 
 void gameMenu(int i){
-	switch(i){
-	default:
-		//classicGame();
-		break;
-	}
+	gameWindow(i);
 }
+
 void exitMenu(int i){
 	if(i==2){
 		quadMenu();
