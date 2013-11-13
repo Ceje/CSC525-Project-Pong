@@ -9,17 +9,14 @@ extern int mWidth, mHeight;
 extern int windows[15];
 
 void rotateCube(unsigned char key, int x, int y){}
+void controlList(int i){
+
+}
 void closeQuadMenu(){
-	glutDestroyWindow(windows[4]);
-	//cout<<"closed quad4\n";
-	glutDestroyWindow(windows[3]);
-	//cout<<"closed quad3\n";
-	glutDestroyWindow(windows[2]);
-	//cout<<"closed quad2\n";
-	glutDestroyWindow(windows[1]);
-	//cout<<"closed quad1\n";
-	glutDestroyWindow(windows[0]);
-	//cout<<"closed quad0\n";
+	for(int i=4;i>=0;i--){
+		glutDestroyWindow(windows[i]);
+	}
+	glutDestroyWindow(windows[12]);
 	glutSetWindow(windows[6]);
 }
 void codeWindow(int button, int state, int x, int y){
@@ -34,9 +31,35 @@ void codeWindow(int button, int state, int x, int y){
 	glutAddMenuEntry("Exit",0);
 	glutAttachMenu(0);
 	closeQuadMenu();
+
+
+	glutInitWindowSize(mWidth/2, mHeight/4);
+    glutInitWindowPosition(1200, 20);
+	windows[12]=glutCreateWindow("Controls!");
+	initControlMenu();
+	glutDisplayFunc(extraControls);
+}
+void playerMenuMenu(){
+	glutCreateMenu(playerColorMenu);
+	glutAddMenuEntry("Black",0);
+	glutAddMenuEntry("White",1);
+	glutAddMenuEntry("Red",2);
+	glutAddMenuEntry("Blue",3);
+	glutAddMenuEntry("Green",4);
+	//glutAddMenuEntry("Custom",5);
+	glutAttachMenu(0);
+
+	glutCreateMenu(playerControlMenu);
+	glutAddMenuEntry("W/S",0);
+	glutAddMenuEntry("A/D",1);
+	glutAddMenuEntry("I/K",2);
+	glutAddMenuEntry("J/L",3);
+	//glutAddMenuEntry("Custom",4);
+	glutAttachMenu(2);
 }
 void threeWayGUI(){
 	windows[7]=glutCreateSubWindow(windows[6],0,0,mWidth/4, 40);
+	playerMenuMenu();
 	playerMenuInit();
 	glutDisplayFunc(playerMenuDisplay);
 
@@ -108,7 +131,7 @@ void gameWindow(int gamemode){
 		classicGUI();
 		
 	}
-
+	
 	timerHUD();
 	glutSetWindow(windows[6]);
 	glutCreateMenu(exitMenu);
@@ -118,6 +141,19 @@ void gameWindow(int gamemode){
 	glutAttachMenu(2);
 	closeQuadMenu();
 
+
+	glutInitWindowSize(mWidth*3/4, mHeight/4);
+    glutInitWindowPosition(1100, 20);
+	windows[12]=glutCreateWindow("Controls!");
+	initControlMenu();
+	glutDisplayFunc(gameControls);
+
+}
+void gameDestroy(){
+		for(int i=11;i>5;i--){
+			glutDestroyWindow(windows[i]);
+		}
+		glutSetWindow(windows[0]);
 }
 void cubeWindow(int button, int state, int x, int y){
 	
@@ -136,12 +172,27 @@ void cubeWindow(int button, int state, int x, int y){
 	glutAttachMenu(0);
 	glutKeyboardFunc(rotateCube);
 	closeQuadMenu();
+
+	glutInitWindowSize(mWidth/2, mHeight/4);
+    glutInitWindowPosition(1200, 20);
+	windows[12]=glutCreateWindow("Controls!");
+	initControlMenu();
+	glutDisplayFunc(extraControls);
 }
 
 void quadMenu(){
+	glutInitWindowSize(mWidth, mHeight);
+    glutInitWindowPosition(100, 20);
+
 	windows[0]=glutCreateWindow("The Mighty Pong!");
     initQuadMenu();
     glutDisplayFunc(emptyDisplay);
+
+	glutInitWindowSize(mWidth/2, mHeight/4);
+    glutInitWindowPosition(1200, 20);
+	windows[12]=glutCreateWindow("Controls!");
+	initControlMenu();
+	glutDisplayFunc(menuControls);
 	
 
 	windows[1]=glutCreateSubWindow(windows[0],-mWidth/2,-mWidth/2,mWidth/2,mWidth/2);
@@ -171,4 +222,5 @@ void quadMenu(){
 	glutAddMenuEntry("Exit",0);
 	glutAddMenuEntry("Return to program",1);
 	glutAttachMenu(0);
+
 }

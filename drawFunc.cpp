@@ -21,8 +21,85 @@ void playerMenuInit(){
 	glClearColor(.9,.9,.9,0);
 	gluOrtho2D(-500,500,-500,500);
 }
+void initControlMenu(){
+	glClearColor(0,0,0,0);
+	gluOrtho2D(-500,500,-500,500);
+}
+
 void emptyDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT);
+	glFlush();
+}
+void extraControls(){
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(0,1,0);
+	string line="Use WASD to navigate the content!";
+	glRasterPos2i(-450, 400);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Left click anywhere to bring up the exit menu.";
+	glRasterPos2i(-450,300);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	glFlush();
+}
+void gameControls(){
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(0,1,0);
+	string line="Left click a player score to change their color!";
+	glRasterPos2i(-450, 400);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Right click a player score to change their controls!";
+	glRasterPos2i(-450,300);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Right click the game to bring up the exit menu.";
+	glRasterPos2i(-450,200);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	/*
+	line="Left click the game to pause!";
+	glRasterPos2i(-450,100);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Player 1 controls:"+getPlayerControls(0);
+	glRasterPos2i(-450,0);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Player 2 controls:"+getPlayerControls(1);
+	glRasterPos2i(-450,-100);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Player 3 controls:"+getPlayerControls(2);
+	glRasterPos2i(-450,-200);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Player 4 controls:"+getPlayerControls(3);
+	glRasterPos2i(-450,-300);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	*/
+	glFlush();
+}
+void menuControls(){
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(0,1,0);
+	string line="Left click an option to start!";
+	glRasterPos2i(-450, 400);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
 	glFlush();
 }
 void quadMenuDisplay(){

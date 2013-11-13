@@ -20,3 +20,7 @@ void classic();
 void playerMenuInit();
 void playerMenuDisplay();
 void timerDisplay();
+void initControlMenu();
+void menuControls();
+void gameControls();
+void extraControls();

@@ -6,7 +6,7 @@
 #else
 #include <GL/glut.h>
 #endif
-
+void gameDestroy();
 void quadMenu();
 void cubeWindow(int button, int state, int x, int y);
 void codeWindow(int button, int state, int x, int y);
