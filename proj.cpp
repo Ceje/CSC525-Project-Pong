@@ -73,6 +73,14 @@ void paddleMove()
 
 void ballMove()
 {
+    if(bx == -200 || bx == 200)
+    {
+	bx = 0;
+	by = 0;
+	p1 = 25;
+	p2 = 25;
+    }
+
     if(bx-5 <= -170 && by-5 < p1 && by+5 > p1-50)
     {
 	xdir = xdir * -1;
@@ -109,7 +117,7 @@ void timerCallback(int value)
     paddleMove();
     ballMove();
     drawScene();
-    glutTimerFunc(3, timerCallback, 0);
+    glutTimerFunc(2, timerCallback, 0);
 }
 
 void handleKeyUp(unsigned char key, int x, int y)
@@ -223,7 +231,7 @@ int main(int argc, char** argv)
     glutKeyboardFunc(handleKeypress);
     glutKeyboardUpFunc(handleKeyUp);
 
-    glutTimerFunc(3, timerCallback, 0);
+    glutTimerFunc(2, timerCallback, 0);
 
     glutMainLoop();
     // End OpenGL ********************************************
