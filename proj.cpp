@@ -31,6 +31,7 @@
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
 #include <GLUT/glut.h>
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations" 
 #else
 #include <GL/glut.h>
 #endif
@@ -41,6 +42,9 @@ using namespace std;
 
 int p1 = 25;
 int p2 = 25;
+int bx, by = 0;
+int xdir = -1;
+int ydir = 1;
 bool wup = true;
 bool sup = true;
 bool auup = true;
@@ -50,20 +54,52 @@ void paddleMove()
 {
     if(!wup)
     {
-	p1+=1;
+	p1+=2;
     }
     else if(!sup)
     {
-	p1-=1;
+	p1-=2;
     }
 
     if(!auup)
     {
-	p2+=1;
+	p2+=2;
     }
     else if(!adup)
     {
-	p2-=1;
+	p2-=2;
+    }
+}
+
+void ballMove()
+{
+    if(bx-5 <= -170 && by-5 < p1 && by+5 > p1-50)
+    {
+	xdir = xdir * -1;
+    }
+    if(bx+5 >= 170 && by-5 < p2 && by+5 > p2-50)
+    {
+	xdir = xdir * -1;
+    }
+    if(by == -200 || by == 200)
+    {
+	ydir = ydir * -1;
+    }
+    if(xdir==-1)
+    {
+	bx--;
+    }
+    else
+    {
+	bx++;
+    }
+    if(ydir==-1)
+    {
+	by--;
+    }
+    else if(ydir == 1)
+    {
+	by++;
     }
 }
 
@@ -71,6 +107,7 @@ void paddleMove()
 void timerCallback(int value)
 {
     paddleMove();
+    ballMove();
     drawScene();
     glutTimerFunc(3, timerCallback, 0);
 }
@@ -162,6 +199,11 @@ void drawScene()
 	glVertex2i(170, p2);
 	glVertex2i(190, p2);
 	glVertex2i(190, p2-50);
+
+	glVertex2i(bx-5, by+5);
+	glVertex2i(bx-5, by-5);
+	glVertex2i(bx+5, by-5);
+	glVertex2i(bx+5, by+5);
     glEnd();
 
     glFlush();
