@@ -8,12 +8,13 @@ class Paddle
 	int pY;
 	int initY;
 	int pLen;
+	int bound;
 	bool uMot;
 	bool dMot;
 
 	public:
-		Paddle();
-		Paddle(int x=0, int y=0, int l=0);
+		//Paddle();
+		Paddle(int x=0, int y=0, int b=0, int l=0);
 		void moveY(int val);
 		void start(char dir);
 		void stop(char dir);
@@ -24,6 +25,7 @@ class Paddle
 		void setX(int x);
 		int getY();
 		void setY(int y);
+		void setBound(int b);
 		int getL();
 		void setL(int l);
 };

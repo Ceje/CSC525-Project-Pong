@@ -1,20 +1,21 @@
 #include "Paddle.h"
 #include <iostream>
-
-Paddle::Paddle()
+/*Paddle::Paddle()
 {
     pX=0;
     pY=0;
+	bound=0;
     pLen=0;
 	initY = 0;
 	uMot=false;
 	dMot=false;
 }
-
-Paddle::Paddle(int x, int y, int l)
+*/
+Paddle::Paddle(int x, int y, int b, int l)
 {
 	pX = x;
 	pY = y;
+	bound = b;
 	pLen = l;
 	initY = y;
 	uMot=false;
@@ -62,7 +63,14 @@ bool Paddle::dMotion()
 
 void Paddle::moveY(int val)
 {
-	pY = pY + val;
+	if(pY > -bound && val < 0)
+	{
+		pY = pY + val;
+	}
+	else if(pY < bound && val > 0)
+	{
+		pY = pY + val;
+	}
 	//std::cout << val <<  std::endl;
 }
 
@@ -84,6 +92,12 @@ int Paddle::getY()
 void Paddle::setY(int y)
 {
 	pY = y;
+	initY = y;
+}
+
+void Paddle::setBound(int b)
+{
+	bound = b/2;
 }
 
 int Paddle::getL()

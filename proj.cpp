@@ -37,18 +37,18 @@
 #include <GL/glut.h>
 #endif
 
-void drawScene();
-
 using namespace std;
 
-int sHeight = 0;
-int sWidth = 0;
-Paddle p1(0, 25, 50);
-Paddle p2(0, 25, 50);
+int sHeight = 400;
+int sWidth = 600;
+Paddle p1(0, 0, 0, 50);
+Paddle p2(0, 0, 0, 50);
 int bx, by = 0;
-int ballSpeed = 1;
+int ballSpeed = 0;
 int xdir = -1;
 int ydir = 1;
+
+void drawScene();
 
 
 void paddleMove()
@@ -184,9 +184,8 @@ void handleKeypress(unsigned char key, int x, int y)
 void initRendering()
 {
     glClearColor(1, 1, 1, 0);		//Specify Background Color: white
-    gluOrtho2D(-sWidth/2, sWidth/2, -sHeight/2-50, sHeight/2-50);	//Define the boundries of the viewing area
+    gluOrtho2D(-sWidth/2, sWidth/2, -sHeight/2-25, sHeight/2-25);	//Define the boundries of the viewing area
     glutIgnoreKeyRepeat(1);		//Tells glut to ignore key repeat from holding down a key.
-    //glEnable(GL_DEPTH_TEST);
 }
 
 void drawScene()
@@ -198,15 +197,15 @@ void drawScene()
     // Draw the coordinate Axis;
     glColor3f(0, 0, 0);
     glBegin(GL_QUADS);			//Draw the x, y coordinate axies.
-	glVertex2i(-170, p1.getY());
-	glVertex2i(-170, p1.getY()-p1.getL());
-	glVertex2i(-190, p1.getY()-p1.getL());
-	glVertex2i(-190, p1.getY());
+	glVertex2i(p1.getX(), p1.getY());
+	glVertex2i(p1.getX(), p1.getY()-p1.getL());
+	glVertex2i(p1.getX()-20, p1.getY()-p1.getL());
+	glVertex2i(p1.getX()-20, p1.getY());
 
-	glVertex2i(170, p2.getY()-p2.getL());
-	glVertex2i(170, p2.getY());
-	glVertex2i(190, p2.getY());
-	glVertex2i(190, p2.getY()-p2.getL());
+	glVertex2i(p2.getX(), p2.getY()-p2.getL());
+	glVertex2i(p2.getX(), p2.getY());
+	glVertex2i(p2.getX()+20, p2.getY());
+	glVertex2i(p2.getX()+20, p2.getY()-p2.getL());
 
 	glVertex2i(bx-5, by+5);
 	glVertex2i(bx-5, by-5);
@@ -223,12 +222,19 @@ int main(int argc, char** argv)
       // OpenGL Startup ****************************************
     glutInit(&argc, argv);
     //glutInitWindowSize(400, 400);
-	sWidth = glutGet(GLUT_SCREEN_WIDTH);
-	sHeight = glutGet(GLUT_SCREEN_HEIGHT);
-	glutInitWindowSize(sWidth, sHeight-100);
+	sWidth = glutGet(GLUT_SCREEN_WIDTH)-40;
+	sHeight = glutGet(GLUT_SCREEN_HEIGHT) - 100;
+	glutInitWindowSize(sWidth, sHeight);
 
     glutCreateWindow("Proj Test");
     initRendering();
+
+	p1.setX((-sWidth/2)+30);
+	p1.setY(0+p1.getL()/2);
+	p1.setBound(sHeight);
+	p2.setX((sWidth/2)-30);
+	p2.setY(0+p2.getL()/2);
+	p2.setBound(sHeight);
 
     glutDisplayFunc(drawScene);
     glutKeyboardFunc(handleKeypress);
