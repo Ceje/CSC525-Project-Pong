@@ -1,18 +1,9 @@
 #include "Paddle.h"
 #include <iostream>
-/*Paddle::Paddle()
-{
-    pX=0;
-    pY=0;
-	bound=0;
-    pLen=0;
-	initY = 0;
-	uMot=false;
-	dMot=false;
-}
-*/
+
 Paddle::Paddle(int x, int y, int b, int l)
 {
+	// Need to make this center instead of top corner.
 	pX = x;
 	pY = y;
 	bound = b;
@@ -32,6 +23,7 @@ void Paddle::start(char dir)
 	{
 		dMot=true;
 	}
+	//std::cout << dir << std::endl;
 }
 
 void Paddle::stop(char dir)
@@ -71,7 +63,6 @@ void Paddle::moveY(int val)
 	{
 		pY = pY + val;
 	}
-	//std::cout << val <<  std::endl;
 }
 
 int Paddle::getX()

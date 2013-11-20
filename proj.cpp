@@ -28,6 +28,7 @@
 #include <cmath>
 #include <string>
 #include "Paddle.h"
+#include "Ball.h"
 
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
@@ -41,12 +42,9 @@ using namespace std;
 
 int sHeight = 400;
 int sWidth = 600;
-Paddle p1(0, 0, 0, 50);
-Paddle p2(0, 0, 0, 50);
-int bx, by = 0;
-int ballSpeed = 0;
-int xdir = -1;
-int ydir = 1;
+Paddle p1 = Paddle();
+Paddle p2 = Paddle();
+Ball b1 = Ball();
 
 void drawScene();
 
@@ -74,42 +72,22 @@ void paddleMove()
 
 void ballMove()
 {
-    if(bx == -200 || bx == 200)
+    if(b1.getSpeed() == 0)
     {
-	bx = 0;
-	by = 0;
-	p1.reset();
-	p2.reset();
+		p1.reset();
+		p2.reset();
     }
 
-    if(bx-5 <= -170 && by-5 < p1.getY() && by+5 > p1.getY()-p1.getL())
+    if(b1.getX()-5 <= p1.getX() && b1.getY()-5 < p1.getY()+p1.getL()/2 && b1.getY()+5 > p1.getY()-p1.getL()/2)
     {
-	xdir = xdir * -1;
+		b1.changeDir('x');
     }
-    if(bx+5 >= 170 && by-5 < p2.getY() && by+5 > p2.getY()-p2.getL())
+    if(b1.getX()+5 >= p2.getX() && b1.getY()-5 < p2.getY()+p2.getL()/2 && b1.getY()+5 > p2.getY()-p2.getL()/2)
     {
-	xdir = xdir * -1;
+		b1.changeDir('x');
     }
-    if(by == -200 || by == 200)
-    {
-	ydir = ydir * -1;
-    }
-    if(xdir==-1)
-    {
-	bx-=ballSpeed;
-    }
-    else
-    {
-	bx+=ballSpeed;
-    }
-    if(ydir==-1)
-    {
-	by-=ballSpeed;
-    }
-    else if(ydir == 1)
-    {
-	by+=ballSpeed;
-    }
+	b1.moveX(b1.getSpeed());
+	b1.moveY(b1.getSpeed());
 }
 
 // OpenGL functions *******************************************************
@@ -177,6 +155,8 @@ void handleKeypress(unsigned char key, int x, int y)
 		p2.start('d');
 		break;
 	    }
+	default:
+		b1.setSpeed(1);
     }
     //drawScene();
 }
@@ -184,7 +164,7 @@ void handleKeypress(unsigned char key, int x, int y)
 void initRendering()
 {
     glClearColor(1, 1, 1, 0);		//Specify Background Color: white
-    gluOrtho2D(-sWidth/2, sWidth/2, -sHeight/2-25, sHeight/2-25);	//Define the boundries of the viewing area
+    gluOrtho2D(-sWidth/2, sWidth/2, -sHeight/2, sHeight/2);	//Define the boundries of the viewing area
     glutIgnoreKeyRepeat(1);		//Tells glut to ignore key repeat from holding down a key.
 }
 
@@ -194,23 +174,23 @@ void drawScene()
 
     glPointSize(1);
     glLineWidth(1);
-    // Draw the coordinate Axis;
+
     glColor3f(0, 0, 0);
-    glBegin(GL_QUADS);			//Draw the x, y coordinate axies.
-	glVertex2i(p1.getX(), p1.getY());
-	glVertex2i(p1.getX(), p1.getY()-p1.getL());
-	glVertex2i(p1.getX()-20, p1.getY()-p1.getL());
-	glVertex2i(p1.getX()-20, p1.getY());
+    glBegin(GL_QUADS);
+	glVertex2i(p1.getX(), p1.getY()+p1.getL()/2);
+	glVertex2i(p1.getX(), p1.getY()-p1.getL()/2);
+	glVertex2i(p1.getX()-20, p1.getY()-p1.getL()/2);
+	glVertex2i(p1.getX()-20, p1.getY()+p1.getL()/2);
 
-	glVertex2i(p2.getX(), p2.getY()-p2.getL());
-	glVertex2i(p2.getX(), p2.getY());
-	glVertex2i(p2.getX()+20, p2.getY());
-	glVertex2i(p2.getX()+20, p2.getY()-p2.getL());
+	glVertex2i(p2.getX(), p2.getY()+p2.getL()/2);
+	glVertex2i(p2.getX(), p2.getY()-p2.getL()/2);
+	glVertex2i(p2.getX()+20, p2.getY()-p2.getL()/2);
+	glVertex2i(p2.getX()+20, p2.getY()+p2.getL()/2);
 
-	glVertex2i(bx-5, by+5);
-	glVertex2i(bx-5, by-5);
-	glVertex2i(bx+5, by-5);
-	glVertex2i(bx+5, by+5);
+	glVertex2i(b1.getX()-5, b1.getY()+5);
+	glVertex2i(b1.getX()-5, b1.getY()-5);
+	glVertex2i(b1.getX()+5, b1.getY()-5);
+	glVertex2i(b1.getX()+5, b1.getY()+5);
     glEnd();
 
     glFlush();
@@ -230,11 +210,12 @@ int main(int argc, char** argv)
     initRendering();
 
 	p1.setX((-sWidth/2)+30);
-	p1.setY(0+p1.getL()/2);
+	p1.setY(0);
 	p1.setBound(sHeight);
 	p2.setX((sWidth/2)-30);
-	p2.setY(0+p2.getL()/2);
+	p2.setY(0);
 	p2.setBound(sHeight);
+	b1 = Ball(0, 0, sWidth, sHeight);
 
     glutDisplayFunc(drawScene);
     glutKeyboardFunc(handleKeypress);

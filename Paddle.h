@@ -14,7 +14,8 @@ class Paddle
 
 	public:
 		//Paddle();
-		Paddle(int x=0, int y=0, int b=0, int l=0);
+		Paddle(int x=0, int y=0, int b=0, int l=50);
+		void move(int in);
 		void moveY(int val);
 		void start(char dir);
 		void stop(char dir);
