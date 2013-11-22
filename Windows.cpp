@@ -57,46 +57,34 @@ void playerMenuMenu(){
 	//glutAddMenuEntry("Custom",4);
 	glutAttachMenu(2);
 }
-void threeWayGUI(){
-	windows[7]=glutCreateSubWindow(windows[6],0,0,mWidth/4, 40);
+void playerScoreBoard(int window, int x, int y, int width, int height){
+	windows[window]=glutCreateSubWindow(windows[6],x,y,width, height);
 	playerMenuMenu();
 	playerMenuInit();
 	glutDisplayFunc(playerMenuDisplay);
+}
 
-	windows[8]=glutCreateSubWindow(windows[6],(mWidth-(mWidth/4)),0,mWidth/4,40);
-	playerMenuInit();
-	glutDisplayFunc(playerMenuDisplay);
+void threeWayGUI(){
+	playerScoreBoard(7,0,0,mWidth/4, 40);
 
-	windows[9]=glutCreateSubWindow(windows[6],0,(mHeight-40),mWidth/4,40);
-	playerMenuInit();
-	glutDisplayFunc(playerMenuDisplay);
+	playerScoreBoard(8,(mWidth-(mWidth/4)),0,mWidth/4,40);
+
+	playerScoreBoard(9,0,(mHeight-40),mWidth/4,40);
+
 }
 void quadGUI(){
-	windows[7]=glutCreateSubWindow(windows[6],0,0,mWidth/4, 40);
-	playerMenuInit();
-	glutDisplayFunc(playerMenuDisplay);
+	playerScoreBoard(7,0,0,mWidth/4, 40);
 
-	windows[8]=glutCreateSubWindow(windows[6],(mWidth-(mWidth/4)),0,mWidth/4,40);
-	playerMenuInit();
-	glutDisplayFunc(playerMenuDisplay);
+	playerScoreBoard(8,(mWidth-(mWidth/4)),0,mWidth/4,40);
 
-	windows[9]=glutCreateSubWindow(windows[6],0,(mHeight-40),mWidth/4,40);
-	playerMenuInit();
-	glutDisplayFunc(playerMenuDisplay);
+	playerScoreBoard(9,0,(mHeight-40),mWidth/4,40);
 
-	windows[10]=glutCreateSubWindow(windows[6],(mWidth-(mWidth/4)),(mHeight-40),mWidth/4,40);
-	playerMenuInit();
-	glutDisplayFunc(playerMenuDisplay);
-
+	playerScoreBoard(10,(mWidth-(mWidth/4)),(mHeight-40),mWidth/4,40);
 }
 void classicGUI(){
-	windows[7]=glutCreateSubWindow(windows[6],0,0,mWidth/4, 40);
-	playerMenuInit();
-	glutDisplayFunc(playerMenuDisplay);
+	playerScoreBoard(7,0,0,mWidth/4, 40);
 
-	windows[8]=glutCreateSubWindow(windows[6],(mWidth-(mWidth/4)),0,mWidth/4,40);
-	playerMenuInit();
-	glutDisplayFunc(playerMenuDisplay);
+	playerScoreBoard(8,(mWidth-(mWidth/4)),0,mWidth/4,40);
 }
 void timerHUD(){
 	windows[11]=glutCreateSubWindow(windows[6],mWidth/3,0,mWidth/3,80);
