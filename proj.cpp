@@ -27,52 +27,76 @@
 #include <stdlib.h>
 #include <cmath>
 #include <string>
+#include "Paddle.h"
+#include "Ball.h"
 
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
 #include <GLUT/glut.h>
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations" 
 #else
 #include <GL/glut.h>
 #endif
 
-void drawScene();
-
 using namespace std;
 
-int p1 = 25;
-int p2 = 25;
-bool wup = true;
-bool sup = true;
-bool auup = true;
-bool adup = true;
+int sHeight = 400;
+int sWidth = 600;
+Paddle p1 = Paddle();
+Paddle p2 = Paddle();
+Ball b1 = Ball();
+
+void drawScene();
+
 
 void paddleMove()
 {
-    if(!wup)
+    if(p1.uMotion())
     {
-	p1+=1;
+		p1.moveY(2);
     }
-    else if(!sup)
+    else if(p1.dMotion())
     {
-	p1-=1;
+		p1.moveY(-2);
     }
 
-    if(!auup)
+    if(p2.uMotion())
     {
-	p2+=1;
+		p2.moveY(2);
     }
-    else if(!adup)
+    else if(p2.dMotion())
     {
-	p2-=1;
+		p2.moveY(-2);
     }
+}
+
+void ballMove()
+{
+    if(b1.getSpeed() == 0)
+    {
+		p1.reset();
+		p2.reset();
+    }
+
+    if(b1.getX()-5 <= p1.getX() && b1.getY()-5 < p1.getY()+p1.getL()/2 && b1.getY()+5 > p1.getY()-p1.getL()/2)
+    {
+		b1.changeDir('x');
+    }
+    if(b1.getX()+5 >= p2.getX() && b1.getY()-5 < p2.getY()+p2.getL()/2 && b1.getY()+5 > p2.getY()-p2.getL()/2)
+    {
+		b1.changeDir('x');
+    }
+	b1.moveX(b1.getSpeed());
+	b1.moveY(b1.getSpeed());
 }
 
 // OpenGL functions *******************************************************
 void timerCallback(int value)
 {
     paddleMove();
+    ballMove();
     drawScene();
-    glutTimerFunc(3, timerCallback, 0);
+    glutTimerFunc(2, timerCallback, 0);
 }
 
 void handleKeyUp(unsigned char key, int x, int y)
@@ -81,23 +105,22 @@ void handleKeyUp(unsigned char key, int x, int y)
     {
 	case 'w':
 	    {
-		wup = true;
-		//cout << "w up" << endl;
+		p1.stop('u');
 		break;
 	    }
 	case 's':
 	    {
-		sup = true;
+		p1.stop('d');
 		break;
 	    }
-	case 'o':	//up arrow
+	case 'o':
 	    {
-		auup = true;
+		p2.stop('u');
 		break;
 	    }
 	case 'l':
 	    {
-		adup = true;
+		p2.stop('d');
 		break;
 	    }
     }
@@ -114,24 +137,26 @@ void handleKeypress(unsigned char key, int x, int y)
 	    }
 	case 'w':
 	    {
-		wup = false;
+		p1.start('u');
 		break;
 	    }
 	case 's':
 	    {
-		sup = false;
+		p1.start('d');
 		break;
 	    }
 	case 'o':
 	    {
-		auup = false;
+		p2.start('u');
 		break;
 	    }
 	case 'l':
 	    {
-		adup =false;
+		p2.start('d');
 		break;
 	    }
+	default:
+		b1.setSpeed(1);
     }
     //drawScene();
 }
@@ -139,9 +164,8 @@ void handleKeypress(unsigned char key, int x, int y)
 void initRendering()
 {
     glClearColor(1, 1, 1, 0);		//Specify Background Color: white
-    gluOrtho2D(-200, 200, -200, 200);	//Define the boundries of the viewing area
+    gluOrtho2D(-sWidth/2, sWidth/2, -sHeight/2, sHeight/2);	//Define the boundries of the viewing area
     glutIgnoreKeyRepeat(1);		//Tells glut to ignore key repeat from holding down a key.
-    //glEnable(GL_DEPTH_TEST);
 }
 
 void drawScene()
@@ -150,18 +174,23 @@ void drawScene()
 
     glPointSize(1);
     glLineWidth(1);
-    // Draw the coordinate Axis;
-    glColor3f(0, 0, 0);
-    glBegin(GL_QUADS);			//Draw the x, y coordinate axies.
-	glVertex2i(-170, p1);
-	glVertex2i(-170, p1-50);
-	glVertex2i(-190, p1-50);
-	glVertex2i(-190, p1);
 
-	glVertex2i(170, p2-50);
-	glVertex2i(170, p2);
-	glVertex2i(190, p2);
-	glVertex2i(190, p2-50);
+    glColor3f(0, 0, 0);
+    glBegin(GL_QUADS);
+	glVertex2i(p1.getX(), p1.getY()+p1.getL()/2);
+	glVertex2i(p1.getX(), p1.getY()-p1.getL()/2);
+	glVertex2i(p1.getX()-20, p1.getY()-p1.getL()/2);
+	glVertex2i(p1.getX()-20, p1.getY()+p1.getL()/2);
+
+	glVertex2i(p2.getX(), p2.getY()+p2.getL()/2);
+	glVertex2i(p2.getX(), p2.getY()-p2.getL()/2);
+	glVertex2i(p2.getX()+20, p2.getY()-p2.getL()/2);
+	glVertex2i(p2.getX()+20, p2.getY()+p2.getL()/2);
+
+	glVertex2i(b1.getX()-5, b1.getY()+5);
+	glVertex2i(b1.getX()-5, b1.getY()-5);
+	glVertex2i(b1.getX()+5, b1.getY()-5);
+	glVertex2i(b1.getX()+5, b1.getY()+5);
     glEnd();
 
     glFlush();
@@ -172,16 +201,29 @@ int main(int argc, char** argv)
 {
       // OpenGL Startup ****************************************
     glutInit(&argc, argv);
-    glutInitWindowSize(400, 400);
+    //glutInitWindowSize(400, 400);
+	sWidth = glutGet(GLUT_SCREEN_WIDTH)-40;
+	sHeight = glutGet(GLUT_SCREEN_HEIGHT) - 100;
+	glutInitWindowSize(sWidth, sHeight);
 
     glutCreateWindow("Proj Test");
     initRendering();
+
+	p1.setX((-sWidth/2)+30);
+	p1.setY(0);
+	p1.setBound(sHeight);
+	p2.setX((sWidth/2)-30);
+	p2.setY(0);
+	p2.setBound(sHeight);
+	b1 = Ball(0, 0, sWidth, sHeight);
 
     glutDisplayFunc(drawScene);
     glutKeyboardFunc(handleKeypress);
     glutKeyboardUpFunc(handleKeyUp);
 
-    glutTimerFunc(3, timerCallback, 0);
+	std::cout << glutGet(GLUT_SCREEN_WIDTH) << 'X' << glutGet(GLUT_SCREEN_HEIGHT) << std::endl;
+
+    glutTimerFunc(2, timerCallback, 0);
 
     glutMainLoop();
     // End OpenGL ********************************************
