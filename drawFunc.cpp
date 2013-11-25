@@ -259,6 +259,24 @@ void playerMenuDisplay(){
 	}
 	glFlush();
 }
+void draw3dText(float tx,float ty,float tz,
+				float ra, float rx,float ry,float rz, 
+				float sx, float sy, float sz, 
+				string words, int indent)
+{
+	glPushMatrix();
+		glRotatef(ra,rx,ry,rz);
+		glTranslatef(tx,ty,tz);
+		glScalef(sx,sy,sz);
+		for(int i=0;i<words.length();i++){
+			if(i%indent==0&&i>1){
+				glTranslatef(-75/.1,-10/.1,0);
+			}
+			glutStrokeCharacter(GLUT_STROKE_ROMAN,words[i]);
+		}
+	glPopMatrix();
+}
+
 void doubles(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glFlush();
