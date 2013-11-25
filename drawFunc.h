@@ -2,7 +2,7 @@
 //this file just contains the function declarations
 //the implementations will be in drawFunc.cpp
 #include <cmath>
-
+#include <string>
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
 #include <GLUT/glut.h>
@@ -24,3 +24,5 @@ void initControlMenu();
 void menuControls();
 void gameControls();
 void extraControls();
+void drawRotatingCube();
+void draw3dText(float tx,float ty,float tz,float ra, float rx,float ry,float rz, float sx, float sy, float sz, std::string words, float indent);

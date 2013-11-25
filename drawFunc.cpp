@@ -7,13 +7,14 @@ using namespace std;
 
 extern int mWidth, mHeight;
 extern int windows[15];
+extern float cubeR;
 
 
 
 void initQuadMenu()
 {
-    glClearColor(1, 1, 1, 0);		//Specify Background Color: white
-    gluOrtho2D(-500, 500, -500, 500);	//Define the boundries of the viewing area
+    glClearColor(0,0,0,0);		//Specify Background Color: white
+    glOrtho(-500, 500, -500, 500,-500,500);	//Define the boundries of the viewing area
     glutIgnoreKeyRepeat(1);		//Tells glut to ignore key repeat from holding down a key.
     //glEnable(GL_DEPTH_TEST);
 }
@@ -102,8 +103,9 @@ void menuControls(){
 	}
 	glFlush();
 }
+
 void quadMenuDisplay(){
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		glColor3f(0,0,0);
 		glBegin(GL_QUADS);
 			glVertex2i(-mWidth/2,-mHeight/2);
@@ -126,6 +128,7 @@ void quadMenuDisplay(){
 		}
 		else if(i==windows[2]){
 			label="CUBE OF INFORMATION!";
+			drawRotatingCube();
 		}
 		else if(i==windows[3]){
 			label="FREE SAMPLES!";
@@ -133,6 +136,7 @@ void quadMenuDisplay(){
 		else if(i==windows[4]){
 			label="Exit";
 		}
+		glColor3f(1,1,1);
 		glRasterPos2i(label.length()*-12, 0);
 		for(int i=0;i<label.length();i++){
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, label[i]);
@@ -262,21 +266,36 @@ void playerMenuDisplay(){
 void draw3dText(float tx,float ty,float tz,
 				float ra, float rx,float ry,float rz, 
 				float sx, float sy, float sz, 
-				string words, int indent)
+				string words, float indent)
 {
 	glPushMatrix();
 		glRotatef(ra,rx,ry,rz);
 		glTranslatef(tx,ty,tz);
 		glScalef(sx,sy,sz);
 		for(int i=0;i<words.length();i++){
-			if(i%indent==0&&i>1){
-				glTranslatef(-75/sx,-12/sy,0);
+			if(i%(int)indent==0&&i>1){
+				glTranslatef((indent*-10.5)/.1,-15/.1,0);
 			}
-			glutStrokeCharacter(GLUT_STROKE_ROMAN,words[i]);
+			glutStrokeCharacter(GLUT_STROKE_MONO_ROMAN,words[i]);
 		}
+		
 	glPopMatrix();
 }
-
+void drawRotatingCube(){
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+	glPushMatrix();
+		glColor3f(0,0,1);
+		glRotatef(cubeR,1,1,1);
+		glPushMatrix();
+			int cube=300;
+			glutSolidCube(cube);		
+		glPopMatrix();
+		glColor3f(0,1,0);
+		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,0,1,0,0,.1,.1,.1, "10010010101010101",2);
+		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,90,1,0,0,.2,.2,.2, "10010010101010101",3);
+	glPopMatrix();
+	glFlush();
+}
 void doubles(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glFlush();
