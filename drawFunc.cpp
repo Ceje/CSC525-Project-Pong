@@ -270,7 +270,7 @@ void draw3dText(float tx,float ty,float tz,
 		glScalef(sx,sy,sz);
 		for(int i=0;i<words.length();i++){
 			if(i%indent==0&&i>1){
-				glTranslatef(-75/.1,-10/.1,0);
+				glTranslatef(-75/sx,-12/sy,0);
 			}
 			glutStrokeCharacter(GLUT_STROKE_ROMAN,words[i]);
 		}
