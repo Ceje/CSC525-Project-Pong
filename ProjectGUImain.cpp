@@ -27,7 +27,7 @@
 #include "drawFunc.h"
 #include "windows.h"
 #include "menus.h"
-
+#include "timers.h"
 
 
 
@@ -44,6 +44,7 @@ using namespace std;
 int mWidth=1000;
 int mHeight=1000;
 int windows[15];
+float cubeR=0;
 
 
 
@@ -66,6 +67,8 @@ int main(int argc, char** argv)
     glutInitWindowPosition(100, 20);
 	
     quadMenu();
+
+	glutTimerFunc(2,cubeTimer,0);
 
     glutMainLoop();
     return 0;
