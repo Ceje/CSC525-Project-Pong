@@ -8,6 +8,8 @@ using namespace std;
 extern int mWidth, mHeight;
 extern int windows[15];
 extern float cubeR;
+extern int textPos[];
+extern string fillerText[];
 
 
 
@@ -106,13 +108,6 @@ void menuControls(){
 
 void quadMenuDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-		glColor3f(0,0,0);
-		glBegin(GL_QUADS);
-			glVertex2i(-mWidth/2,-mHeight/2);
-			glVertex2i(-mWidth/2,mHeight/2);
-			glVertex2i(mWidth/2,mHeight/2);
-			glVertex2i(mWidth/2,-mHeight/2);
-		glEnd();
 		glColor3f(1,1,1);
 		glPolygonMode(GL_BACK,GL_LINE);
 		glBegin(GL_QUADS);
@@ -132,6 +127,7 @@ void quadMenuDisplay(){
 		}
 		else if(i==windows[3]){
 			label="FREE SAMPLES!";
+			drawTimedText();
 		}
 		else if(i==windows[4]){
 			label="Exit";
@@ -280,6 +276,21 @@ void draw3dText(float tx,float ty,float tz,
 		}
 		
 	glPopMatrix();
+}
+void drawTimedText(){
+	int linePos[]={-450,400};
+	for(int i=0; i<textPos[1];i++){
+		glRasterPos2iv(linePos);
+
+		for(int j=0; j<=fillerText[i].length();j++){
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,fillerText[i][j]);	
+		}
+		linePos[1]-=25;
+	}
+	glRasterPos2iv(linePos);
+	for(int j=0; j<=textPos[0];j++){
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,fillerText[textPos[1]][j]);	
+	}
 }
 void drawRotatingCube(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);

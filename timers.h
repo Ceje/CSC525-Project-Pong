@@ -8,3 +8,4 @@
 #endif
 
 void cubeTimer(int i);
+void textTimer(int i);

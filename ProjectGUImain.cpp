@@ -45,8 +45,10 @@ int mWidth=1000;
 int mHeight=1000;
 int windows[15];
 float cubeR=0;
-
-
+int textPos[]={0,0};
+int line=0;
+int lnCount=0;
+string fillerText[]={"bob","Steve", "larry", "Lerooooooooooooooooooooooooooy"};
 
 
 int main(int argc, char** argv)
@@ -65,11 +67,11 @@ int main(int argc, char** argv)
     glutInit(& argc, argv);
     glutInitWindowSize(mWidth, mHeight);
     glutInitWindowPosition(100, 20);
-	
+	lnCount=4;
     quadMenu();
 
 	glutTimerFunc(2,cubeTimer,0);
-
+	glutTimerFunc(1000,textTimer,0);
     glutMainLoop();
     return 0;
 }

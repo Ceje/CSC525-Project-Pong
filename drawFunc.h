@@ -24,5 +24,6 @@ void initControlMenu();
 void menuControls();
 void gameControls();
 void extraControls();
+void drawTimedText();
 void drawRotatingCube();
 void draw3dText(float tx,float ty,float tz,float ra, float rx,float ry,float rz, float sx, float sy, float sz, std::string words, float indent);
