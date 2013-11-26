@@ -9,19 +9,24 @@ class Paddle
 	int initY;
 	int pLen;
 	int bound;
-	bool uMot;
-	bool dMot;
+	int speed;
+	int dir;
+	//bool uMot;
+	//bool dMot;
 
 	public:
 		//Paddle();
 		Paddle(int x=0, int y=0, int b=0, int l=50);
-		void move(int in);
-		void moveY(int val);
-		void start(char dir);
-		void stop(char dir);
+		void move();
+		//void start(char dir);
+		//void stop(char dir);
+		void setSpeed(int spd);
+		int getSpeed();
+		void setDir(int d);
+		int getDir();
 		void reset();
-		bool uMotion();
-		bool dMotion();
+		//bool uMotion();
+		//bool dMotion();
 		int getX();
 		void setX(int x);
 		int getY();

@@ -48,28 +48,6 @@ Ball b1 = Ball();
 
 void drawScene();
 
-
-void paddleMove()
-{
-    if(p1.uMotion())
-    {
-		p1.moveY(2);
-    }
-    else if(p1.dMotion())
-    {
-		p1.moveY(-2);
-    }
-
-    if(p2.uMotion())
-    {
-		p2.moveY(2);
-    }
-    else if(p2.dMotion())
-    {
-		p2.moveY(-2);
-    }
-}
-
 void ballMove()
 {
     if(b1.getSpeed() == 0)
@@ -86,14 +64,15 @@ void ballMove()
     {
 		b1.changeDir('x');
     }
-	b1.moveX(b1.getSpeed());
-	b1.moveY(b1.getSpeed());
+
+    b1.move();
 }
 
 // OpenGL functions *******************************************************
 void timerCallback(int value)
 {
-    paddleMove();
+    p1.move();
+    p2.move();
     ballMove();
     drawScene();
     glutTimerFunc(2, timerCallback, 0);
@@ -105,22 +84,22 @@ void handleKeyUp(unsigned char key, int x, int y)
     {
 	case 'w':
 	    {
-		p1.stop('u');
+		p1.setDir(0);
 		break;
 	    }
 	case 's':
 	    {
-		p1.stop('d');
+		p1.setDir(0);
 		break;
 	    }
 	case 'o':
 	    {
-		p2.stop('u');
+		p2.setDir(0);
 		break;
 	    }
 	case 'l':
 	    {
-		p2.stop('d');
+		p2.setDir(0);
 		break;
 	    }
     }
@@ -137,26 +116,26 @@ void handleKeypress(unsigned char key, int x, int y)
 	    }
 	case 'w':
 	    {
-		p1.start('u');
+		p1.setDir(1);
 		break;
 	    }
 	case 's':
 	    {
-		p1.start('d');
+		p1.setDir(-1);
 		break;
 	    }
 	case 'o':
 	    {
-		p2.start('u');
+		p2.setDir(1);
 		break;
 	    }
 	case 'l':
 	    {
-		p2.start('d');
+		p2.setDir(-1);
 		break;
 	    }
 	default:
-		b1.setSpeed(1);
+		b1.setSpeed(3);
     }
     //drawScene();
 }

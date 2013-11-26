@@ -14,12 +14,13 @@ class Ball
 	int yDir;
 
 	void setDir();
+	void moveY();
+	void moveX();
 
 	public:
 		Ball();
 		Ball(int x, int y, int xb, int yb);
-		void moveY(int val);
-		void moveX(int val);
+		void move();
 		int getSpeed();
 		void setSpeed(int s);
 		int getDir(char ax);

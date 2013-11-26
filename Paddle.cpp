@@ -9,33 +9,8 @@ Paddle::Paddle(int x, int y, int b, int l)
 	bound = b;
 	pLen = l;
 	initY = y;
-	uMot=false;
-	dMot=false;
-}
-
-void Paddle::start(char dir)
-{
-	if(dir == 'u')
-	{
-		uMot=true;
-	}
-	else if(dir == 'd')
-	{
-		dMot=true;
-	}
-	//std::cout << dir << std::endl;
-}
-
-void Paddle::stop(char dir)
-{
-	if(dir == 'u')
-	{
-		uMot=false;
-	}
-	else if(dir == 'd')
-	{
-		dMot=false;
-	}
+	speed = 4;
+	dir = 0;
 }
 
 void Paddle::reset()
@@ -43,26 +18,45 @@ void Paddle::reset()
 	pY=initY;
 }
 
-bool Paddle::uMotion()
+void Paddle::move()
 {
-	return uMot;
+	if(pY >= -bound && dir < 0)
+	{
+		pY += speed * dir;
+	}
+	else if(pY <= bound && dir > 0)
+	{
+		pY += speed * dir;
+	}
 }
 
-bool Paddle::dMotion()
+int Paddle::getDir()
 {
-	return dMot;
+    return dir;
 }
 
-void Paddle::moveY(int val)
+void Paddle::setDir(int d)
 {
-	if(pY > -bound && val < 0)
-	{
-		pY = pY + val;
-	}
-	else if(pY < bound && val > 0)
-	{
-		pY = pY + val;
-	}
+    if (d < 0)
+    {
+	dir = -1;
+    }
+    else if(d > 0)
+    {
+	dir = 1;
+    }
+    else 
+	dir = 0;
+}
+
+int Paddle::getSpeed()
+{
+    return speed;
+}
+
+void Paddle::setSpeed(int spd)
+{
+    speed = spd;
 }
 
 int Paddle::getX()

@@ -59,34 +59,40 @@ void Ball::reset()
 	setDir();
 }
 
-void Ball::moveY(int val)
+void Ball::moveY()
 {
 	if(bY <= -yBound)
 	{
 		yDir *= -1;
-		bY += val * yDir;
+		bY += speed * yDir;
 	}
 	else if(bY >= yBound)
 	{
 		yDir *= -1;
-		bY += val * yDir;
+		bY += speed * yDir;
 	}
 	else 
 	{
-		bY += val * yDir;
+		bY += speed * yDir;
 	}
 }
 
-void Ball::moveX(int val)
+void Ball::moveX()
 {
-	if(bX == -xBound || bX == xBound)
+	if(bX <= -xBound || bX >= xBound)
 	{
 		reset();
 	}
 	else
 	{
-		bX += val * xDir;
+		bX += speed * xDir;
 	}
+}
+
+void Ball::move()
+{
+    moveX();
+    moveY();
 }
 
 int Ball::getDir(char ax)
