@@ -9,7 +9,9 @@ extern int windows[];
 extern int textPos[];
 extern int line;
 extern int lnCount;
+extern float exitR;
 extern string fillerText[];
+
 void cubeTimer(int i){
 	cubeR++;
 	if(cubeR==360){
@@ -21,6 +23,7 @@ void cubeTimer(int i){
 	quadMenuDisplay();
 	glutTimerFunc(25,cubeTimer,0);
 }
+
 void textTimer(int i){
 	line=fillerText[textPos[1]].length();
 	textPos[0]++;
@@ -37,3 +40,16 @@ void textTimer(int i){
 	quadMenuDisplay();
 	glutTimerFunc(1000,textTimer,0);
 }
+
+void wordSpinTimer(int i){
+	exitR++;
+	if(exitR==360){
+		exitR=-1;
+	}
+	if(glutGetWindow()<7&&glutGetWindow()>3){//stomps warnings for bogus windows
+		glutSetWindow(windows[4]);
+	}
+	quadMenuDisplay();
+	glutTimerFunc(25,wordSpinTimer,0);
+}
+	

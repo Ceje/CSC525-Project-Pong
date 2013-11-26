@@ -9,6 +9,7 @@ extern int mWidth, mHeight;
 extern int windows[15];
 extern float cubeR;
 extern int textPos[];
+extern float exitR;
 extern string fillerText[];
 
 
@@ -109,13 +110,13 @@ void menuControls(){
 void quadMenuDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		glColor3f(1,1,1);
-		glPolygonMode(GL_BACK,GL_LINE);
+		/*glPolygonMode(GL_BACK,GL_LINE);
 		glBegin(GL_QUADS);
-			glVertex2i(-mWidth/2,-mHeight/2);
-			glVertex2i(-mWidth/2,mHeight/2);
-			glVertex2i(mWidth/2,mHeight/2);
+			glVertex2i(-mWidth/2,1-mHeight/2);
+			glVertex2i(-mWidth/2,1+mHeight/2);
+			glVertex2i(mWidth/2,1+mHeight/2);
 			glVertex2i(mWidth/2,-mHeight/2);
-		glEnd();
+		glEnd();*/
 		string label;
 		int i=glutGetWindow();
 		if(i==windows[1]){
@@ -130,7 +131,8 @@ void quadMenuDisplay(){
 			drawTimedText();
 		}
 		else if(i==windows[4]){
-			label="Exit";
+			label="";
+			displayExit();
 		}
 		glColor3f(1,1,1);
 		glRasterPos2i(label.length()*-12, 0);
@@ -304,6 +306,15 @@ void drawRotatingCube(){
 		glColor3f(0,1,0);
 		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,0,1,0,0,.1,.1,.1, "10010010101010101",2);
 		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,90,1,0,0,.2,.2,.2, "10010010101010101",3);
+	glPopMatrix();
+	glFlush();
+}
+void displayExit(){
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+	glPushMatrix();
+		glColor3f(0,1,11);
+		glRotatef(exitR,0,0,1);
+		draw3dText(0,50,0,1,0,0,0,.5,.5,.5,"EXIT",4);
 	glPopMatrix();
 	glFlush();
 }

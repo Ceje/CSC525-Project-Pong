@@ -48,6 +48,7 @@ float cubeR=0;
 int textPos[]={0,0};
 int line=0;
 int lnCount=0;
+float exitR=0;
 string fillerText[]={"bob","Steve", "larry", "Lerooooooooooooooooooooooooooy"};
 
 
@@ -72,6 +73,7 @@ int main(int argc, char** argv)
 
 	glutTimerFunc(2,cubeTimer,0);
 	glutTimerFunc(1000,textTimer,0);
+	glutTimerFunc(2,wordSpinTimer,0);
     glutMainLoop();
     return 0;
 }
