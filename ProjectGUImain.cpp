@@ -49,6 +49,7 @@ int textPos[]={0,0};
 int line=0;
 int lnCount=0;
 float exitR=0;
+float infoCubeR[]={0,0,0,0};
 string fillerText[]={"bob","Steve", "larry", "Lerooooooooooooooooooooooooooy"};
 
 

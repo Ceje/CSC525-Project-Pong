@@ -8,7 +8,6 @@ using namespace std;
 extern int mWidth, mHeight;
 extern int windows[15];
 
-void rotateCube(unsigned char key, int x, int y){}
 void controlList(int i){
 
 }
@@ -150,15 +149,15 @@ void cubeWindow(int button, int state, int x, int y){
     glutInitWindowPosition(100, 20);
 	//cout<<"building cube\n";
 	windows[6]=glutCreateWindow("THE CUBE OF INFORMATION!");
-	initQuadMenu();
-	glutDisplayFunc(emptyDisplay);
+	initInfoCube();
+	glutDisplayFunc(drawInfoCube);
 	//cout<<"cube menu\n";
 	glutCreateMenu(exitMenu);
 	glutAddMenuEntry("Exit to menu",2);
 	glutAddMenuEntry("Return to program",1);
 	glutAddMenuEntry("Exit",0);
 	glutAttachMenu(0);
-	glutKeyboardFunc(rotateCube);
+	glutKeyboardFunc(infoCubeKeys);
 	closeQuadMenu();
 
 	glutInitWindowSize(mWidth/2, mHeight/4);

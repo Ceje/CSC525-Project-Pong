@@ -27,4 +27,7 @@ void extraControls();
 void drawTimedText();
 void drawRotatingCube();
 void displayExit();
+void drawInfoCube();
+void initInfoCube();
+void reshape(int w, int h);
 void draw3dText(float tx,float ty,float tz,float ra, float rx,float ry,float rz, float sx, float sy, float sz, std::string words, float indent);

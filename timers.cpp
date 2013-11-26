@@ -11,6 +11,7 @@ extern int line;
 extern int lnCount;
 extern float exitR;
 extern string fillerText[];
+extern float infoCubeR[];
 
 void cubeTimer(int i){
 	cubeR++;
@@ -51,5 +52,16 @@ void wordSpinTimer(int i){
 	}
 	quadMenuDisplay();
 	glutTimerFunc(25,wordSpinTimer,0);
+}
+
+void infoCubeTurn(int i){
+	infoCubeR[0]++;
+	glutSetWindow(windows[6]);
+	glutKeyboardFunc(NULL);
+	drawInfoCube();
+	if(infoCubeR[0]<90){
+		glutTimerFunc(25,infoCubeTurn,0);
+		glutKeyboardFunc(infoCubeKeys);
+	}
 }
 	
