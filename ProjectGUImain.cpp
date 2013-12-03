@@ -49,7 +49,10 @@ int textPos[]={0,0};
 int line=0;
 int lnCount=0;
 float exitR=0;
-float infoCubeR[]={0,0,0,0};
+float infoCubeAngle[]={0,0,0};
+float infoCubeOld[]={0,0,0};
+int infoCubeRot=0;
+bool infoCubeNegative=false;
 string fillerText[]={"bob","Steve", "larry", "Lerooooooooooooooooooooooooooy"};
 
 
@@ -69,12 +72,11 @@ int main(int argc, char** argv)
     glutInit(& argc, argv);
     glutInitWindowSize(mWidth, mHeight);
     glutInitWindowPosition(100, 20);
+	glEnable(GL_DEPTH_TEST);
 	lnCount=4;
     quadMenu();
 
-	glutTimerFunc(2,cubeTimer,0);
-	glutTimerFunc(1000,textTimer,0);
-	glutTimerFunc(2,wordSpinTimer,0);
+	
     glutMainLoop();
     return 0;
 }

@@ -9,7 +9,10 @@ using namespace std;
 
 extern int mWidth, mHeight;
 extern int windows[15];
-extern float infoCubeR[];
+extern int infoCubeRot;
+extern float infoCubeAngle[];
+extern bool infoCubeNegative;
+extern float infoCubeOld[];
 
 void gameMenu(int i){
 	gameWindow(i);
@@ -63,13 +66,13 @@ void playerColorMenu(int i){
 
 void exitMenu(int i){
 	if(i==3){
-		glutDestroyWindow(windows[12]);
 		quadMenu();
+		glutDestroyWindow(windows[12]);
 		gameDestroy();
 	}
 	else if(i==2){
-		glutDestroyWindow(windows[12]);
 		quadMenu();
+		glutDestroyWindow(windows[12]);
 		glutDestroyWindow(windows[6]);
 		glutSetWindow(windows[0]);
 	}
@@ -100,31 +103,31 @@ void playerControlMenu(int i){
 void infoCubeKeys(unsigned char key, int x, int y){
 	switch(key){
 		case 'w':
-			infoCubeR[1]=1;
-			infoCubeR[2]=0;
-			infoCubeR[3]=0;
+			infoCubeRot=0;
+			infoCubeNegative=false;
 			break;
 		case 'a':
-			infoCubeR[1]=0;
-			infoCubeR[2]=-1;
-			infoCubeR[3]=0;
+			infoCubeRot=1;
+			infoCubeNegative=true;
 			break;
 		case 's':
-			infoCubeR[1]=-1;
-			infoCubeR[2]=0;
-			infoCubeR[3]=0;
+			infoCubeRot=0;
+			infoCubeNegative=true;
 			break;
 		case 'd':
-			infoCubeR[1]=0;
-			infoCubeR[2]=1;
-			infoCubeR[3]=0;
+			infoCubeRot=1;
+			infoCubeNegative=false;
 			break;
 		default:
-			infoCubeR[1]=0;
-			infoCubeR[2]=0;
-			infoCubeR[3]=0;
+			infoCubeRot=1;
+			infoCubeNegative=false;
 			break;
 	}
-	infoCubeR[0]=0;
+	for(int i=0;i<3;i++){
+		infoCubeAngle[i]=(int)infoCubeAngle[i]%360;
+		infoCubeOld[i]=infoCubeAngle[i];
+	}
 	glutTimerFunc(25,infoCubeTurn,0);
 }
+
+void emptyKeys(unsigned char key, int x, int y){}

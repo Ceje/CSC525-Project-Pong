@@ -3,6 +3,7 @@
 #include "drawFunc.h"
 #include "windows.h"
 #include "menus.h"
+#include "timers.h"
 using namespace std;
 
 extern int mWidth, mHeight;
@@ -144,6 +145,12 @@ void gameDestroy(){
 }
 void cubeWindow(int button, int state, int x, int y){
 	
+	glutInitWindowSize(mWidth/2, mHeight/4);
+    glutInitWindowPosition(1200, 20);
+	windows[12]=glutCreateWindow("Controls!");
+	initControlMenu();
+	glutDisplayFunc(extraControls);
+
 	//cout<<"initializing cube\n";
     glutInitWindowSize(mWidth, mHeight);
     glutInitWindowPosition(100, 20);
@@ -160,11 +167,7 @@ void cubeWindow(int button, int state, int x, int y){
 	glutKeyboardFunc(infoCubeKeys);
 	closeQuadMenu();
 
-	glutInitWindowSize(mWidth/2, mHeight/4);
-    glutInitWindowPosition(1200, 20);
-	windows[12]=glutCreateWindow("Controls!");
-	initControlMenu();
-	glutDisplayFunc(extraControls);
+	glutSetWindow(windows[6]);
 }
 
 void quadMenu(){
@@ -196,11 +199,13 @@ void quadMenu(){
 	initQuadMenu();
 	glutDisplayFunc(quadMenuDisplay);
 	glutMouseFunc(cubeWindow);
+	glutTimerFunc(4,cubeTimer,0);
 
 	windows[3]=glutCreateSubWindow(windows[0],-mWidth/2,mWidth/2,mWidth/2,mWidth/2);
 	initQuadMenu();
 	glutDisplayFunc(quadMenuDisplay);
 	glutMouseFunc(codeWindow);
+	glutTimerFunc(1000,textTimer,0);
 	
 	windows[4]=glutCreateSubWindow(windows[0],mWidth/2,mWidth/2,mWidth/2,mWidth/2);
 	initQuadMenu();
@@ -209,5 +214,9 @@ void quadMenu(){
 	glutAddMenuEntry("Exit",0);
 	glutAddMenuEntry("Return to program",1);
 	glutAttachMenu(0);
+	glutTimerFunc(4,wordSpinTimer,0);
+	
+	
+	
 
 }

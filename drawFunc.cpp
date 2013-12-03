@@ -11,7 +11,7 @@ extern float cubeR;
 extern int textPos[];
 extern float exitR;
 extern string fillerText[];
-extern float infoCubeR[];
+extern float infoCubeAngle[];
 
 
 
@@ -32,9 +32,9 @@ void initControlMenu(){
 }
 void initInfoCube(){
 	glClearColor(1,1,1,0);
-	//glFrustum(-500, 500, -500, 500, 50,1000);
-	glOrtho(-600,600,-600,600,-600,600);
-	gluLookAt(0,0, 100,0,0,0,0,1,0);
+	glFrustum(-500, 500, -500, 500,350,1000);
+	//glOrtho(-600,600,-600,600,0,1000);
+	gluLookAt(0,0,1000, 0,0,0, 0,1,0);
 }
 
 void emptyDisplay(){
@@ -318,28 +318,24 @@ void drawRotatingCube(){
 }
 void drawInfoCube(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+
+	glColor3f(0,0,0);
 	glPushMatrix();
-		glColor3f(0,0,0);
-		glRotatef(infoCubeR[0],infoCubeR[1],infoCubeR[2],infoCubeR[3]);
-		glPushMatrix();
-			int cube=100;
-			glutSolidCube(cube);		
-		glPopMatrix();
+	//cout<<"drew grid";
+		glRotatef(infoCubeAngle[0],1,0,0);
+		glRotatef(infoCubeAngle[1],0,1,0);
+		glRotatef(infoCubeAngle[2],0,0,1);
+		int cube=900;
+		glutSolidCube(cube);		
 		glColor3f(0,1,0);
-		glBegin(GL_LINES);	
-    		glVertex3i(-500,0,0);
-    		glVertex3i(500,0,0);
-    		glVertex3i(0,-500,0);
-    		glVertex3i(0,500,0);
-    		glVertex3i(0,0,-500);
-    		glVertex3i(0,0,500);
-		glEnd();
-		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,0,1,0,0,1,1,1, "1",2);
-		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,90,1,0,0,1,1,1, "2",2);
-		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,-90,1,0,0,1,1,1, "3",2);
-		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,90,0,1,0,1,1,1, "4",2);
-		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,-90,0,1,0,1,1,1, "5",2);
-		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,180,1,0,0,1,1,1, "6",2);
+		//cout<<"drew cube";
+		draw3dText(0,0,(cube/2)+1,0,1,0,0,1,1,1, "1",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+1,90,1,0,0,1,1,1, "2",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+1,-90,1,0,0,1,1,1, "3",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+1,90,0,1,0,1,1,1, "4",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+1,-90,0,1,0,1,1,1, "5",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+1,180,1,0,0,1,1,1, "6",2);
+		//cout<<"drew text";
 	glPopMatrix();
 	glFlush();
 }
