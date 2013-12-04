@@ -8,15 +8,17 @@ using namespace std;
 
 extern int mWidth, mHeight;
 extern int windows[15];
+extern int activeWindow;
 
 void controlList(int i){
 
 }
 void closeQuadMenu(){
+	activeWindow=1;
 	for(int i=4;i>=0;i--){
 		glutDestroyWindow(windows[i]);
 	}
-	glutDestroyWindow(windows[12]);
+	//glutDestroyWindow(windows[12]);
 	glutSetWindow(windows[6]);
 }
 void codeWindow(int button, int state, int x, int y){
@@ -32,12 +34,12 @@ void codeWindow(int button, int state, int x, int y){
 	glutAttachMenu(0);
 	closeQuadMenu();
 
-
+	glutDestroyWindow(windows[12]);
 	glutInitWindowSize(mWidth/2, mHeight/4);
     glutInitWindowPosition(1200, 20);
 	windows[12]=glutCreateWindow("Controls!");
 	initControlMenu();
-	glutDisplayFunc(extraControls);
+	glutDisplayFunc(cubeControls);
 }
 void playerMenuMenu(){
 	glutCreateMenu(playerColorMenu);
@@ -144,12 +146,12 @@ void gameDestroy(){
 		glutSetWindow(windows[0]);
 }
 void cubeWindow(int button, int state, int x, int y){
-	
+	glutDestroyWindow(windows[12]);
 	glutInitWindowSize(mWidth/2, mHeight/4);
     glutInitWindowPosition(1200, 20);
 	windows[12]=glutCreateWindow("Controls!");
 	initControlMenu();
-	glutDisplayFunc(extraControls);
+	glutDisplayFunc(cubeControls);
 
 	//cout<<"initializing cube\n";
     glutInitWindowSize(mWidth, mHeight);
@@ -216,7 +218,6 @@ void quadMenu(){
 	glutAttachMenu(0);
 	glutTimerFunc(4,wordSpinTimer,0);
 	
-	
-	
+	activeWindow=0;
 
 }

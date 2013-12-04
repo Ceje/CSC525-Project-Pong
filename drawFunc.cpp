@@ -12,6 +12,7 @@ extern int textPos[];
 extern float exitR;
 extern string fillerText[];
 extern float infoCubeAngle[];
+extern bool infoCubeInside;
 
 
 
@@ -41,16 +42,21 @@ void emptyDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glFlush();
 }
-void extraControls(){
+void cubeControls(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0,1,0);
-	string line="Use WASD to navigate the content!";
-	glRasterPos2i(-450, 400);
+	string line="Use 'W' 'A' 'S' and 'D' to navigate the content!";
+	glRasterPos2i(-490, 400);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Press 'space' to enter the cube!";
+	glRasterPos2i(-490,300);
 	for(int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	line="Left click anywhere to bring up the exit menu.";
-	glRasterPos2i(-450,300);
+	glRasterPos2i(-490,200);
 	for(int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
@@ -338,6 +344,21 @@ void drawInfoCube(){
 		//cout<<"drew text";
 	glPopMatrix();
 	glFlush();
+}
+void changeInfoCubeView(){
+	glMatrixMode(GL_PROJECTION_MATRIX);
+	glLoadIdentity();
+	if(infoCubeInside==false){
+		glFrustum(-300, 300, -300, 300,350,1000);
+		//glOrtho(-600,600,-600,600,0,1000);
+		gluLookAt(0,0,100, 0,0,0, 0,1,0);
+	}
+	else{
+		glFrustum(-500, 500, -500, 500,350,1000);
+		//glOrtho(-600,600,-600,600,0,1000);
+		gluLookAt(0,0,1000, 0,0,0, 0,1,0);
+	}
+	infoCubeInside=!infoCubeInside;
 }
 void displayExit(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);

@@ -53,6 +53,10 @@ float infoCubeAngle[]={0,0,0};
 float infoCubeOld[]={0,0,0};
 int infoCubeRot=0;
 bool infoCubeNegative=false;
+bool infoCubeTurned=false;
+bool infoCubeTurning=false;
+bool infoCubeInside=false;
+int activeWindow=0;
 string fillerText[]={"bob","Steve", "larry", "Lerooooooooooooooooooooooooooy"};
 
 
