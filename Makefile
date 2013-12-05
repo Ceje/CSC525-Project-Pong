@@ -3,7 +3,7 @@ CFLAGS = -Wno-deprecated-declarations -Wall
 PROG = proj
 
 SRCS = proj.cpp
-OBJS = proj.o Paddle.o Ball.o
+OBJS = proj.o Paddle.o Ball.o Pong.o
 
 ifeq ($(shell uname),Darwin)
 	LIBS = -framework OpenGL -framework GLUT
@@ -24,5 +24,8 @@ Paddle.o: Paddle.cpp Paddle.h
 
 Ball.o: Ball.cpp Ball.h
 	$(CC) $(CFLAGS) -g -c Ball.cpp
+
+Pong.o: Pong.cpp Pong.h
+	$(CC) $(CFLAGS) -g -c Pong.cpp
 clean:
 	rm -f $(PROG) $(OBJS)

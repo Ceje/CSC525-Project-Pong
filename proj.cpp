@@ -29,6 +29,7 @@
 #include <string>
 #include "Paddle.h"
 #include "Ball.h"
+#include "Pong.h"
 
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
@@ -40,40 +41,23 @@
 
 using namespace std;
 
-int sHeight = 400;
-int sWidth = 600;
+// timer disctrepency between win/osx
+// move object declarations out to Pong class
+//
+
+int sHeight = 480;
+int sWidth = 640;
 Paddle p1 = Paddle();
 Paddle p2 = Paddle();
 Ball b1 = Ball();
+Pong g1 = Pong();
 
 void drawScene();
-
-void ballMove()
-{
-    if(b1.getSpeed() == 0)
-    {
-		p1.reset();
-		p2.reset();
-    }
-
-    if(b1.getX()-5 <= p1.getX() && b1.getY()-5 < p1.getY()+p1.getL()/2 && b1.getY()+5 > p1.getY()-p1.getL()/2)
-    {
-		b1.changeDir('x');
-    }
-    if(b1.getX()+5 >= p2.getX() && b1.getY()-5 < p2.getY()+p2.getL()/2 && b1.getY()+5 > p2.getY()-p2.getL()/2)
-    {
-		b1.changeDir('x');
-    }
-
-    b1.move();
-}
 
 // OpenGL functions *******************************************************
 void timerCallback(int value)
 {
-    p1.move();
-    p2.move();
-    ballMove();
+    g1.play();
     drawScene();
     glutTimerFunc(2, timerCallback, 0);
 }
@@ -84,22 +68,22 @@ void handleKeyUp(unsigned char key, int x, int y)
     {
 	case 'w':
 	    {
-		p1.setDir(0);
+		g1.p1.setDir(0);
 		break;
 	    }
 	case 's':
 	    {
-		p1.setDir(0);
+		g1.p1.setDir(0);
 		break;
 	    }
 	case 'o':
 	    {
-		p2.setDir(0);
+		g1.p2.setDir(0);
 		break;
 	    }
 	case 'l':
 	    {
-		p2.setDir(0);
+		g1.p2.setDir(0);
 		break;
 	    }
     }
@@ -116,26 +100,26 @@ void handleKeypress(unsigned char key, int x, int y)
 	    }
 	case 'w':
 	    {
-		p1.setDir(1);
+		g1.p1.setDir(1);
 		break;
 	    }
 	case 's':
 	    {
-		p1.setDir(-1);
+		g1.p1.setDir(-1);
 		break;
 	    }
 	case 'o':
 	    {
-		p2.setDir(1);
+		g1.p2.setDir(1);
 		break;
 	    }
 	case 'l':
 	    {
-		p2.setDir(-1);
+		g1.p2.setDir(-1);
 		break;
 	    }
 	default:
-		b1.setSpeed(3);
+		g1.b1.setSpeed(3);
     }
     //drawScene();
 }
@@ -156,20 +140,20 @@ void drawScene()
 
     glColor3f(0, 0, 0);
     glBegin(GL_QUADS);
-	glVertex2i(p1.getX(), p1.getY()+p1.getL()/2);
-	glVertex2i(p1.getX(), p1.getY()-p1.getL()/2);
-	glVertex2i(p1.getX()-20, p1.getY()-p1.getL()/2);
-	glVertex2i(p1.getX()-20, p1.getY()+p1.getL()/2);
+	glVertex2i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"));
+	glVertex2i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"));
+	glVertex2i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"));
+	glVertex2i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"));
 
-	glVertex2i(p2.getX(), p2.getY()+p2.getL()/2);
-	glVertex2i(p2.getX(), p2.getY()-p2.getL()/2);
-	glVertex2i(p2.getX()+20, p2.getY()-p2.getL()/2);
-	glVertex2i(p2.getX()+20, p2.getY()+p2.getL()/2);
+	glVertex2i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"));
+	glVertex2i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"));
+	glVertex2i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"));
+	glVertex2i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"));
 
-	glVertex2i(b1.getX()-5, b1.getY()+5);
-	glVertex2i(b1.getX()-5, b1.getY()-5);
-	glVertex2i(b1.getX()+5, b1.getY()-5);
-	glVertex2i(b1.getX()+5, b1.getY()+5);
+	glVertex2i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"));
+	glVertex2i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"));
+	glVertex2i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"));
+	glVertex2i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"));
     glEnd();
 
     glFlush();
@@ -190,11 +174,15 @@ int main(int argc, char** argv)
 
 	p1.setX((-sWidth/2)+30);
 	p1.setY(0);
+	p1.setL(150);
 	p1.setBound(sHeight);
 	p2.setX((sWidth/2)-30);
 	p2.setY(0);
+	p2.setL(150);
 	p2.setBound(sHeight);
-	b1 = Ball(0, 0, sWidth, sHeight);
+	b1 = Ball(0, 0, sWidth, sHeight, 15);
+	g1 = Pong(p1, p2, b1, sWidth, sHeight);
+
 
     glutDisplayFunc(drawScene);
     glutKeyboardFunc(handleKeypress);

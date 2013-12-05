@@ -12,6 +12,7 @@ class Ball
 	int yBound;
 	int xDir;
 	int yDir;
+	int rad;
 
 	void setDir();
 	void moveY();
@@ -19,7 +20,7 @@ class Ball
 
 	public:
 		Ball();
-		Ball(int x, int y, int xb, int yb);
+		Ball(int x, int y, int xb, int yb, int r);
 		void move();
 		int getSpeed();
 		void setSpeed(int s);
@@ -31,6 +32,9 @@ class Ball
 		int getY();
 		void setY(int y);
 		void setBound(int x, int y);
+		void setRad(int r);
+		int getRad();
+		int getVtx(std::string crn, std::string axs);
 
 };
 #endif

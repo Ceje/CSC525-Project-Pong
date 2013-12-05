@@ -1,16 +1,18 @@
 #include "Paddle.h"
 #include <iostream>
 
-Paddle::Paddle(int x, int y, int b, int l)
+// Need to do vertex math interally and include accessors
+
+Paddle::Paddle(int x, int y, int l, int b, int s, int d, int scr)
 {
-	// Need to make this center instead of top corner.
 	pX = x;
 	pY = y;
 	bound = b;
 	pLen = l;
 	initY = y;
-	speed = 4;
-	dir = 0;
+	speed = s;
+	dir = d;
+	score = scr;
 }
 
 void Paddle::reset()
@@ -93,4 +95,52 @@ int Paddle::getL()
 void Paddle::setL(int l)
 {
 	pLen = l;
+}
+
+void Paddle::goal()
+{
+    score++;
+}
+
+int Paddle::getScore()
+{
+    return score;
+}
+
+int Paddle::getVtx(std::string crn, std::string axs)
+{
+    if(crn == "ft")
+    {
+	if(axs == "x")
+	    return pX;
+	else if(axs == "y")
+	    return pY+pLen/2;
+    }
+    else if(crn == "fb")
+    {
+        if(axs == "x")
+	    return pX;
+	else if(axs == "y")
+	    return pY-pLen/2;
+    }
+    else if(crn == "bt")
+    {
+	if(axs == "x" && pX < 0)
+	    return pX-20;
+	else if(axs == "x" && pX > 0)
+	    return pX+20;
+	else if(axs == "y")
+	    return pY+pLen/2;
+    }
+    else if(crn == "bb")
+    {
+	if(axs == "x" && pX < 0)
+	    return pX-20;
+	else if(axs == "x" && pX > 0)
+	    return pX + 20;
+	else if(axs == "y")
+	    return pY-pLen/2;
+    }
+    
+    return -1;
 }
