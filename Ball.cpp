@@ -85,6 +85,7 @@ void Ball::moveY()
 
 void Ball::moveX()
 {
+	/*
 	if(bX <= -xBound || bX >= xBound)
 	{
 		reset();
@@ -93,6 +94,8 @@ void Ball::moveX()
 	{
 		bX += speed * xDir;
 	}
+	*/
+	bX += speed * xDir;
 }
 
 void Ball::move()

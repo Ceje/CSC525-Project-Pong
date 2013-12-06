@@ -1,10 +1,9 @@
 #include "Pong.h"
 
 //Work out ball paddle interaction bugs
-//add goals where appropriate
 //Work on clock time
 //Stop being lazy!
-//Make accessors and mutators for objects (make paddles and ball private again)
+//Make accessors and mutators for objects (make paddles and ball private again) not very feasable
 //add functionality for 4 player version
 //Basic AI for single player and demo purposes
 
@@ -63,10 +62,26 @@ void Pong::play()
 	b1.changeDir('x');
     }
 
+	//if(b1.getX()-b1.getRad()/2 <= p1.getX() && b1.getY()-b1.getRad() 
+
     if(b1.getX()+b1.getRad() >= p2.getX() && b1.getY()-b1.getRad() < p2.getY()+p2.getL()/2 && b1.getY()+b1.getRad() > p2.getY()-p2.getL()/2)
     {
 	b1.changeDir('x');
     }
+
+	if(b1.getX() <= -xBound/2)
+	{
+		p2.goal();
+		b1.reset();
+		std::cout << "Player 2: " << p2.getScore() << std::endl;
+	}
+
+	if(b1.getX() >= xBound/2)
+	{
+		p1.goal();
+		b1.reset();
+		std::cout << "Player 1: " << p1.getScore() << std::endl;
+	}
 
     b1.move();
 }
