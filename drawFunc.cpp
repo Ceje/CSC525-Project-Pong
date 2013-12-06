@@ -9,7 +9,10 @@ extern int mWidth, mHeight;
 extern int windows[15];
 extern float cubeR;
 extern int textPos[];
+extern float exitR;
 extern string fillerText[];
+extern float infoCubeAngle[];
+extern bool infoCubeInside;
 
 
 
@@ -28,21 +31,32 @@ void initControlMenu(){
 	glClearColor(0,0,0,0);
 	gluOrtho2D(-500,500,-500,500);
 }
+void initInfoCube(){
+	glClearColor(1,1,1,0);
+	glFrustum(-500, 500, -500, 500,350,1000);
+	//glOrtho(-600,600,-600,600,0,1000);
+	gluLookAt(0,0,1000, 0,0,0, 0,1,0);
+}
 
 void emptyDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glFlush();
 }
-void extraControls(){
+void cubeControls(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0,1,0);
-	string line="Use WASD to navigate the content!";
-	glRasterPos2i(-450, 400);
+	string line="Use 'W' 'A' 'S' and 'D' to navigate the content!";
+	glRasterPos2i(-490, 400);
+	for(int i=0;i<line.length();i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Press 'space' to enter the cube!";
+	glRasterPos2i(-490,300);
 	for(int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	line="Left click anywhere to bring up the exit menu.";
-	glRasterPos2i(-450,300);
+	glRasterPos2i(-490,200);
 	for(int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
@@ -109,13 +123,13 @@ void menuControls(){
 void quadMenuDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		glColor3f(1,1,1);
-		glPolygonMode(GL_BACK,GL_LINE);
+		/*glPolygonMode(GL_BACK,GL_LINE);
 		glBegin(GL_QUADS);
-			glVertex2i(-mWidth/2,-mHeight/2);
-			glVertex2i(-mWidth/2,mHeight/2);
-			glVertex2i(mWidth/2,mHeight/2);
+			glVertex2i(-mWidth/2,1-mHeight/2);
+			glVertex2i(-mWidth/2,1+mHeight/2);
+			glVertex2i(mWidth/2,1+mHeight/2);
 			glVertex2i(mWidth/2,-mHeight/2);
-		glEnd();
+		glEnd();*/
 		string label;
 		int i=glutGetWindow();
 		if(i==windows[1]){
@@ -130,7 +144,8 @@ void quadMenuDisplay(){
 			drawTimedText();
 		}
 		else if(i==windows[4]){
-			label="Exit";
+			label="";
+			displayExit();
 		}
 		glColor3f(1,1,1);
 		glRasterPos2i(label.length()*-12, 0);
@@ -304,6 +319,53 @@ void drawRotatingCube(){
 		glColor3f(0,1,0);
 		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,0,1,0,0,.1,.1,.1, "10010010101010101",2);
 		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,90,1,0,0,.2,.2,.2, "10010010101010101",3);
+	glPopMatrix();
+	glFlush();
+}
+void drawInfoCube(){
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+
+	glColor3f(0,0,0);
+	glPushMatrix();
+	//cout<<"drew grid";
+		glRotatef(infoCubeAngle[0],1,0,0);
+		glRotatef(infoCubeAngle[1],0,1,0);
+		glRotatef(infoCubeAngle[2],0,0,1);
+		int cube=900;
+		glutSolidCube(cube);		
+		glColor3f(0,1,0);
+		//cout<<"drew cube";
+		draw3dText(0,0,(cube/2)+1,0,1,0,0,1,1,1, "1",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+1,90,1,0,0,1,1,1, "2",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+1,-90,1,0,0,1,1,1, "3",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+1,90,0,1,0,1,1,1, "4",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+1,-90,0,1,0,1,1,1, "5",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+1,180,1,0,0,1,1,1, "6",2);
+		//cout<<"drew text";
+	glPopMatrix();
+	glFlush();
+}
+void changeInfoCubeView(){
+	glMatrixMode(GL_PROJECTION_MATRIX);
+	glLoadIdentity();
+	if(infoCubeInside==false){
+		glFrustum(-300, 300, -300, 300,350,1000);
+		//glOrtho(-600,600,-600,600,0,1000);
+		gluLookAt(0,0,100, 0,0,0, 0,1,0);
+	}
+	else{
+		glFrustum(-500, 500, -500, 500,350,1000);
+		//glOrtho(-600,600,-600,600,0,1000);
+		gluLookAt(0,0,1000, 0,0,0, 0,1,0);
+	}
+	infoCubeInside=!infoCubeInside;
+}
+void displayExit(){
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+	glPushMatrix();
+		glColor3f(0,1,11);
+		glRotatef(exitR,0,0,1);
+		draw3dText(0,50,0,1,0,0,0,.5,.5,.5,"EXIT",4);
 	glPopMatrix();
 	glFlush();
 }

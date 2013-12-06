@@ -2,12 +2,20 @@
 #include "menus.h"
 #include "windows.h"
 #include <string>
+#include "timers.h"
+#include "drawFunc.h"
 using namespace std;
 
 
 
 extern int mWidth, mHeight;
 extern int windows[15];
+extern int infoCubeRot;
+extern float infoCubeAngle[];
+extern bool infoCubeNegative;
+extern float infoCubeOld[];
+extern bool infoCubeTurned;
+extern bool infoCubeTurning;
 
 void gameMenu(int i){
 	gameWindow(i);
@@ -61,13 +69,13 @@ void playerColorMenu(int i){
 
 void exitMenu(int i){
 	if(i==3){
-		glutDestroyWindow(windows[12]);
 		quadMenu();
+		glutDestroyWindow(windows[12]);
 		gameDestroy();
 	}
 	else if(i==2){
-		glutDestroyWindow(windows[12]);
 		quadMenu();
+		glutDestroyWindow(windows[12]);
 		glutDestroyWindow(windows[6]);
 		glutSetWindow(windows[0]);
 	}
@@ -94,3 +102,42 @@ void playerControlMenu(int i){
 		//playerControlChange(3,i);
 	}
 }
+
+void infoCubeKeys(unsigned char key, int x, int y){
+	if(infoCubeTurning==false){
+		infoCubeTurning=true;
+		switch(key){
+			case 'w':
+				infoCubeRot=0;
+				infoCubeNegative=false;
+				infoCubeTurned=!infoCubeTurned;
+				break;
+			case 'a':
+				infoCubeRot=1;
+				infoCubeNegative=true;
+				break;
+			case 's':
+				infoCubeRot=0;
+				infoCubeNegative=true;
+				infoCubeTurned=!infoCubeTurned;
+				break;
+			case 'd':
+				infoCubeRot=1;
+				infoCubeNegative=false;
+				break;
+			case ' ':
+				changeInfoCubeView();
+			default:
+				infoCubeRot=1;
+				infoCubeNegative=false;
+				break;
+		}
+		for(int i=0;i<3;i++){
+			infoCubeAngle[i]=(int)infoCubeAngle[i]%360;
+			infoCubeOld[i]=infoCubeAngle[i];
+		}
+		glutTimerFunc(25,infoCubeTurn,0);
+	}
+}
+
+void emptyKeys(unsigned char key, int x, int y){}

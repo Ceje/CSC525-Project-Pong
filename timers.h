@@ -9,3 +9,5 @@
 
 void cubeTimer(int i);
 void textTimer(int i);
+void wordSpinTimer(int i);
+void infoCubeTurn(int i);

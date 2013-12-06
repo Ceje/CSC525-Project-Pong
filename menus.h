@@ -11,3 +11,5 @@ void gameMenu(int i);
 void exitMenu(int i);
 void playerColorMenu(int i);
 void playerControlMenu(int i);
+void infoCubeKeys(unsigned char key, int x, int y);
+void emptyKeys(unsigned char key, int x, int y);
