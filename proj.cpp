@@ -27,8 +27,7 @@
 #include <stdlib.h>
 #include <cmath>
 #include <string>
-#include "Paddle.h"
-#include "Ball.h"
+#include "Pong.h"
 
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
@@ -40,63 +39,25 @@
 
 using namespace std;
 
-int sHeight = 400;
-int sWidth = 600;
+// timer disctrepency between win/osx
+//
+
+int sHeight = 480;
+int sWidth = 640;
 Paddle p1 = Paddle();
 Paddle p2 = Paddle();
 Ball b1 = Ball();
+Pong g1 = Pong();
 
+void myDisplayCallback();
 void drawScene();
-
-
-void paddleMove()
-{
-    if(p1.uMotion())
-    {
-		p1.moveY(2);
-    }
-    else if(p1.dMotion())
-    {
-		p1.moveY(-2);
-    }
-
-    if(p2.uMotion())
-    {
-		p2.moveY(2);
-    }
-    else if(p2.dMotion())
-    {
-		p2.moveY(-2);
-    }
-}
-
-void ballMove()
-{
-    if(b1.getSpeed() == 0)
-    {
-		p1.reset();
-		p2.reset();
-    }
-
-    if(b1.getX()-5 <= p1.getX() && b1.getY()-5 < p1.getY()+p1.getL()/2 && b1.getY()+5 > p1.getY()-p1.getL()/2)
-    {
-		b1.changeDir('x');
-    }
-    if(b1.getX()+5 >= p2.getX() && b1.getY()-5 < p2.getY()+p2.getL()/2 && b1.getY()+5 > p2.getY()-p2.getL()/2)
-    {
-		b1.changeDir('x');
-    }
-	b1.moveX(b1.getSpeed());
-	b1.moveY(b1.getSpeed());
-}
 
 // OpenGL functions *******************************************************
 void timerCallback(int value)
 {
-    paddleMove();
-    ballMove();
-    drawScene();
-    glutTimerFunc(2, timerCallback, 0);
+    g1.play();
+    myDisplayCallback();
+    glutTimerFunc(10, timerCallback, 0);
 }
 
 void handleKeyUp(unsigned char key, int x, int y)
@@ -105,22 +66,22 @@ void handleKeyUp(unsigned char key, int x, int y)
     {
 	case 'w':
 	    {
-		p1.stop('u');
+		g1.p1.setDir(0);
 		break;
 	    }
 	case 's':
 	    {
-		p1.stop('d');
+		g1.p1.setDir(0);
 		break;
 	    }
 	case 'o':
 	    {
-		p2.stop('u');
+		g1.p2.setDir(0);
 		break;
 	    }
 	case 'l':
 	    {
-		p2.stop('d');
+		g1.p2.setDir(0);
 		break;
 	    }
     }
@@ -137,26 +98,26 @@ void handleKeypress(unsigned char key, int x, int y)
 	    }
 	case 'w':
 	    {
-		p1.start('u');
+		g1.p1.setDir(1);
 		break;
 	    }
 	case 's':
 	    {
-		p1.start('d');
+		g1.p1.setDir(-1);
 		break;
 	    }
 	case 'o':
 	    {
-		p2.start('u');
+		g1.p2.setDir(1);
 		break;
 	    }
 	case 'l':
 	    {
-		p2.start('d');
+		g1.p2.setDir(-1);
 		break;
 	    }
 	default:
-		b1.setSpeed(1);
+		g1.b1.setSpeed(3);
     }
     //drawScene();
 }
@@ -170,60 +131,65 @@ void initRendering()
 
 void drawScene()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    //glClear(GL_COLOR_BUFFER_BIT);
 
     glPointSize(1);
     glLineWidth(1);
 
-    glColor3f(0, 0, 0);
+    glColor3f(0.0, 0.0, 0.0);
     glBegin(GL_QUADS);
-	glVertex2i(p1.getX(), p1.getY()+p1.getL()/2);
-	glVertex2i(p1.getX(), p1.getY()-p1.getL()/2);
-	glVertex2i(p1.getX()-20, p1.getY()-p1.getL()/2);
-	glVertex2i(p1.getX()-20, p1.getY()+p1.getL()/2);
+	glVertex2i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"));
+	glVertex2i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"));
+	glVertex2i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"));
+	glVertex2i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"));
 
-	glVertex2i(p2.getX(), p2.getY()+p2.getL()/2);
-	glVertex2i(p2.getX(), p2.getY()-p2.getL()/2);
-	glVertex2i(p2.getX()+20, p2.getY()-p2.getL()/2);
-	glVertex2i(p2.getX()+20, p2.getY()+p2.getL()/2);
+	glVertex2i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"));
+	glVertex2i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"));
+	glVertex2i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"));
+	glVertex2i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"));
 
-	glVertex2i(b1.getX()-5, b1.getY()+5);
-	glVertex2i(b1.getX()-5, b1.getY()-5);
-	glVertex2i(b1.getX()+5, b1.getY()-5);
-	glVertex2i(b1.getX()+5, b1.getY()+5);
+	glVertex2i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"));
+	glVertex2i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"));
+	glVertex2i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"));
+	glVertex2i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"));
     glEnd();
 
-    glFlush();
+    //glFlush();
+}
+
+void myDisplayCallback()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	drawScene();
+	glFlush();
 }
 
 // The Main function of the program***********************************************************
 int main(int argc, char** argv)
 {
-      // OpenGL Startup ****************************************
+    // OpenGL Startup ****************************************
     glutInit(&argc, argv);
-    //glutInitWindowSize(400, 400);
+
+	/******************************************* this is all of the code needed for a pong game ********************************************/
+	//not including key binds and render function this is just what's needed for the game logic
 	sWidth = glutGet(GLUT_SCREEN_WIDTH)-40;
 	sHeight = glutGet(GLUT_SCREEN_HEIGHT) - 100;
+	
+	g1 = Pong(sWidth, sHeight);
+	/********************************************************* End pong game code **********************************************************/
+
 	glutInitWindowSize(sWidth, sHeight);
 
     glutCreateWindow("Proj Test");
     initRendering();
 
-	p1.setX((-sWidth/2)+30);
-	p1.setY(0);
-	p1.setBound(sHeight);
-	p2.setX((sWidth/2)-30);
-	p2.setY(0);
-	p2.setBound(sHeight);
-	b1 = Ball(0, 0, sWidth, sHeight);
-
-    glutDisplayFunc(drawScene);
+    glutDisplayFunc(myDisplayCallback);
     glutKeyboardFunc(handleKeypress);
     glutKeyboardUpFunc(handleKeyUp);
 
 	std::cout << glutGet(GLUT_SCREEN_WIDTH) << 'X' << glutGet(GLUT_SCREEN_HEIGHT) << std::endl;
 
-    glutTimerFunc(2, timerCallback, 0);
+    glutTimerFunc(10, timerCallback, 0);
 
     glutMainLoop();
     // End OpenGL ********************************************

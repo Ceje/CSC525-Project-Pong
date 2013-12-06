@@ -1,5 +1,9 @@
 #include "Ball.h"
 
+// Need a size value
+// round?
+// do vertex calculations internally and include accessors.
+
 Ball::Ball()
 {
 	bX=0;
@@ -9,9 +13,10 @@ Ball::Ball()
 	yBound=0;
 	xDir=0;
 	yDir=0;
+	rad = 5;
 }
 
-Ball::Ball(int x, int y, int xb, int yb)
+Ball::Ball(int x, int y, int xb, int yb, int r)
 {
 	bX = x;
 	bY = y;
@@ -20,6 +25,7 @@ Ball::Ball(int x, int y, int xb, int yb)
 	yBound = yb/2;
 	xDir = 0;
 	yDir = 0;
+	rad = r;
 	setDir();
 }
 
@@ -59,34 +65,43 @@ void Ball::reset()
 	setDir();
 }
 
-void Ball::moveY(int val)
+void Ball::moveY()
 {
 	if(bY <= -yBound)
 	{
 		yDir *= -1;
-		bY += val * yDir;
+		bY += speed * yDir;
 	}
 	else if(bY >= yBound)
 	{
 		yDir *= -1;
-		bY += val * yDir;
+		bY += speed * yDir;
 	}
 	else 
 	{
-		bY += val * yDir;
+		bY += speed * yDir;
 	}
 }
 
-void Ball::moveX(int val)
+void Ball::moveX()
 {
-	if(bX == -xBound || bX == xBound)
+	/*
+	if(bX <= -xBound || bX >= xBound)
 	{
 		reset();
 	}
 	else
 	{
-		bX += val * xDir;
+		bX += speed * xDir;
 	}
+	*/
+	bX += speed * xDir;
+}
+
+void Ball::move()
+{
+    moveX();
+    moveY();
 }
 
 int Ball::getDir(char ax)
@@ -134,4 +149,51 @@ void Ball::setBound(int x, int y)
 {
 	xBound = x/2;
 	yBound = y/2;
+}
+
+int Ball::getRad()
+{
+    return rad;
+}
+
+void Ball::setRad(int r)
+{
+    rad = r;
+}
+
+int Ball::getVtx(std::string crn, std::string axs)
+{
+    if(crn == "tl")
+    {
+		if(axs == "x")
+		{
+			//std::cout << bX - rad << std::endl;
+			return bX - rad;
+		}
+		else if(axs == "y")
+			return bY + rad;
+    }
+    else if(crn == "bl")
+    {
+	if(axs == "x")
+	    return bX - rad;
+	else if(axs == "y")
+	    return bY - rad;
+    }
+    else if(crn == "br")
+    {
+	if(axs == "x")
+	    return bX + rad;
+	else if(axs == "y")
+	    return bY - rad;
+    }
+    else if(crn == "tr")
+    {
+	if(axs == "x")
+	    return bX + rad;
+	else if(axs == "y")
+	    return bY + rad;
+    }
+
+    return -1;
 }

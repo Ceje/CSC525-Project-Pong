@@ -1,41 +1,18 @@
 #include "Paddle.h"
 #include <iostream>
 
-Paddle::Paddle(int x, int y, int b, int l)
+// Need to do vertex math interally and include accessors
+
+Paddle::Paddle(int x, int y, int l, int b, int s, int d, int scr)
 {
-	// Need to make this center instead of top corner.
 	pX = x;
 	pY = y;
 	bound = b;
 	pLen = l;
 	initY = y;
-	uMot=false;
-	dMot=false;
-}
-
-void Paddle::start(char dir)
-{
-	if(dir == 'u')
-	{
-		uMot=true;
-	}
-	else if(dir == 'd')
-	{
-		dMot=true;
-	}
-	//std::cout << dir << std::endl;
-}
-
-void Paddle::stop(char dir)
-{
-	if(dir == 'u')
-	{
-		uMot=false;
-	}
-	else if(dir == 'd')
-	{
-		dMot=false;
-	}
+	speed = s;
+	dir = d;
+	score = scr;
 }
 
 void Paddle::reset()
@@ -43,26 +20,45 @@ void Paddle::reset()
 	pY=initY;
 }
 
-bool Paddle::uMotion()
+void Paddle::move()
 {
-	return uMot;
+	if(pY >= -bound && dir < 0)
+	{
+		pY += speed * dir;
+	}
+	else if(pY <= bound && dir > 0)
+	{
+		pY += speed * dir;
+	}
 }
 
-bool Paddle::dMotion()
+int Paddle::getDir()
 {
-	return dMot;
+    return dir;
 }
 
-void Paddle::moveY(int val)
+void Paddle::setDir(int d)
 {
-	if(pY > -bound && val < 0)
-	{
-		pY = pY + val;
-	}
-	else if(pY < bound && val > 0)
-	{
-		pY = pY + val;
-	}
+    if (d < 0)
+    {
+	dir = -1;
+    }
+    else if(d > 0)
+    {
+	dir = 1;
+    }
+    else 
+	dir = 0;
+}
+
+int Paddle::getSpeed()
+{
+    return speed;
+}
+
+void Paddle::setSpeed(int spd)
+{
+    speed = spd;
 }
 
 int Paddle::getX()
@@ -99,4 +95,72 @@ int Paddle::getL()
 void Paddle::setL(int l)
 {
 	pLen = l;
+}
+
+void Paddle::goal()
+{
+    score++;
+}
+
+int Paddle::getScore()
+{
+    return score;
+}
+
+int Paddle::getVtx(std::string crn, std::string axs)
+{
+    if(crn == "ft")
+    {
+		if(axs == "x")
+		{
+			return pX;
+		}
+		else if(axs == "y")
+		{
+			return pY+pLen/2;
+		}
+    }
+    else if(crn == "fb")
+    {
+        if(axs == "x")
+		{
+			return pX;
+		}
+		else if(axs == "y")
+		{
+			return pY-pLen/2;
+		}
+    }
+    else if(crn == "bt")
+    {
+		if(axs == "x" && pX < 0)
+		{
+			return pX-20;
+		}
+		else if(axs == "x" && pX > 0)
+		{
+			return pX+20;
+		}
+		else if(axs == "y")
+		{
+			return pY+pLen/2;
+		}
+    }
+    else if(crn == "bb")
+    {
+		if(axs == "x" && pX < 0)
+		{
+			return pX-20;
+		}
+		else if(axs == "x" && pX > 0)
+		{
+			return pX + 20;
+		}
+		else if(axs == "y")
+		{
+			return pY-pLen/2;
+		}
+    }
+    
+    return -1;
 }
