@@ -162,10 +162,13 @@ int Ball::getVtx(std::string crn, std::string axs)
 {
     if(crn == "tl")
     {
-	if(axs == "x")
-	    return bX - rad;
-	else if(axs == "y")
-	    return bY + rad;
+		if(axs == "x")
+		{
+			//std::cout << bX - rad << std::endl;
+			return bX - rad;
+		}
+		else if(axs == "y")
+			return bY + rad;
     }
     else if(crn == "bl")
     {

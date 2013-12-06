@@ -52,13 +52,14 @@ Paddle p2 = Paddle();
 Ball b1 = Ball();
 Pong g1 = Pong();
 
+void myDisplayCallback();
 void drawScene();
 
 // OpenGL functions *******************************************************
 void timerCallback(int value)
 {
     g1.play();
-    drawScene();
+    myDisplayCallback();
     glutTimerFunc(2, timerCallback, 0);
 }
 
@@ -133,12 +134,12 @@ void initRendering()
 
 void drawScene()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    //glClear(GL_COLOR_BUFFER_BIT);
 
     glPointSize(1);
     glLineWidth(1);
 
-    glColor3f(0, 0, 0);
+    glColor3f(0.0, 0.0, 0.0);
     glBegin(GL_QUADS);
 	glVertex2i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"));
 	glVertex2i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"));
@@ -156,7 +157,14 @@ void drawScene()
 	glVertex2i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"));
     glEnd();
 
-    glFlush();
+    //glFlush();
+}
+
+void myDisplayCallback()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	drawScene();
+	glFlush();
 }
 
 // The Main function of the program***********************************************************
@@ -184,7 +192,7 @@ int main(int argc, char** argv)
 	g1 = Pong(p1, p2, b1, sWidth, sHeight);
 
 
-    glutDisplayFunc(drawScene);
+    glutDisplayFunc(myDisplayCallback);
     glutKeyboardFunc(handleKeypress);
     glutKeyboardUpFunc(handleKeyUp);
 

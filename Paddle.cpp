@@ -111,35 +111,55 @@ int Paddle::getVtx(std::string crn, std::string axs)
 {
     if(crn == "ft")
     {
-	if(axs == "x")
-	    return pX;
-	else if(axs == "y")
-	    return pY+pLen/2;
+		if(axs == "x")
+		{
+			return pX;
+		}
+		else if(axs == "y")
+		{
+			return pY+pLen/2;
+		}
     }
     else if(crn == "fb")
     {
         if(axs == "x")
-	    return pX;
-	else if(axs == "y")
-	    return pY-pLen/2;
+		{
+			return pX;
+		}
+		else if(axs == "y")
+		{
+			return pY-pLen/2;
+		}
     }
     else if(crn == "bt")
     {
-	if(axs == "x" && pX < 0)
-	    return pX-20;
-	else if(axs == "x" && pX > 0)
-	    return pX+20;
-	else if(axs == "y")
-	    return pY+pLen/2;
+		if(axs == "x" && pX < 0)
+		{
+			return pX-20;
+		}
+		else if(axs == "x" && pX > 0)
+		{
+			return pX+20;
+		}
+		else if(axs == "y")
+		{
+			return pY+pLen/2;
+		}
     }
     else if(crn == "bb")
     {
-	if(axs == "x" && pX < 0)
-	    return pX-20;
-	else if(axs == "x" && pX > 0)
-	    return pX + 20;
-	else if(axs == "y")
-	    return pY-pLen/2;
+		if(axs == "x" && pX < 0)
+		{
+			return pX-20;
+		}
+		else if(axs == "x" && pX > 0)
+		{
+			return pX + 20;
+		}
+		else if(axs == "y")
+		{
+			return pY-pLen/2;
+		}
     }
     
     return -1;

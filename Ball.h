@@ -1,7 +1,9 @@
 #ifndef _BALL_H
 #define _BALL_H
+
 #include <stdlib.h>
 #include <iostream>
+#include <string>
 
 class Ball
 {
