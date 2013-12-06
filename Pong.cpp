@@ -17,6 +17,16 @@ Pong::Pong()
     yBound = 480;
 }
 
+Pong::Pong(int xB, int yB)
+{
+	xBound = xB;
+	yBound = yB;
+	clock = 0;
+	p1 = Paddle((-xBound/2)+30, 0, yBound/6, yBound, 4, 0, 0);
+	p2 = Paddle((xBound/2)-30, 0, yBound/6, yBound, 4, 0, 0);
+	b1 = Ball(0, 0, xBound, yBound, yBound/100);
+}
+
 Pong::Pong(Paddle in1, Paddle in2, Ball bin1, int xB, int yB)
 {
     p1 = in1;

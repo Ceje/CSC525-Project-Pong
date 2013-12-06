@@ -27,8 +27,6 @@
 #include <stdlib.h>
 #include <cmath>
 #include <string>
-#include "Paddle.h"
-#include "Ball.h"
 #include "Pong.h"
 
 #ifdef __APPLE__
@@ -42,7 +40,6 @@
 using namespace std;
 
 // timer disctrepency between win/osx
-// move object declarations out to Pong class
 //
 
 int sHeight = 480;
@@ -60,7 +57,7 @@ void timerCallback(int value)
 {
     g1.play();
     myDisplayCallback();
-    glutTimerFunc(2, timerCallback, 0);
+    glutTimerFunc(10, timerCallback, 0);
 }
 
 void handleKeyUp(unsigned char key, int x, int y)
@@ -170,27 +167,21 @@ void myDisplayCallback()
 // The Main function of the program***********************************************************
 int main(int argc, char** argv)
 {
-      // OpenGL Startup ****************************************
+    // OpenGL Startup ****************************************
     glutInit(&argc, argv);
-    //glutInitWindowSize(400, 400);
+
+	/******************************************* this is all of the code needed for a pong game ********************************************/
+	//not including key binds and render function this is just what's needed for the game logic
 	sWidth = glutGet(GLUT_SCREEN_WIDTH)-40;
 	sHeight = glutGet(GLUT_SCREEN_HEIGHT) - 100;
+	
+	g1 = Pong(sWidth, sHeight);
+	/********************************************************* End pong game code **********************************************************/
+
 	glutInitWindowSize(sWidth, sHeight);
 
     glutCreateWindow("Proj Test");
     initRendering();
-
-	p1.setX((-sWidth/2)+30);
-	p1.setY(0);
-	p1.setL(150);
-	p1.setBound(sHeight);
-	p2.setX((sWidth/2)-30);
-	p2.setY(0);
-	p2.setL(150);
-	p2.setBound(sHeight);
-	b1 = Ball(0, 0, sWidth, sHeight, 15);
-	g1 = Pong(p1, p2, b1, sWidth, sHeight);
-
 
     glutDisplayFunc(myDisplayCallback);
     glutKeyboardFunc(handleKeypress);
@@ -198,7 +189,7 @@ int main(int argc, char** argv)
 
 	std::cout << glutGet(GLUT_SCREEN_WIDTH) << 'X' << glutGet(GLUT_SCREEN_HEIGHT) << std::endl;
 
-    glutTimerFunc(2, timerCallback, 0);
+    glutTimerFunc(10, timerCallback, 0);
 
     glutMainLoop();
     // End OpenGL ********************************************
