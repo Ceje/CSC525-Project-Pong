@@ -66,13 +66,13 @@ void playerColorMenu(int i){
 
 void exitMenu(int i){
 	if(i==3){
-		quadMenu();
 		glutDestroyWindow(windows[12]);
+		quadMenu();
 		gameDestroy();
 	}
 	else if(i==2){
-		quadMenu();
 		glutDestroyWindow(windows[12]);
+		quadMenu();
 		glutDestroyWindow(windows[6]);
 		glutSetWindow(windows[0]);
 	}

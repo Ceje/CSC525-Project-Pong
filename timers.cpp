@@ -98,6 +98,7 @@ void pongTimer(int i)
 {
 	if(activeWindow == windows[6])
 	{
+		glutSetWindow(windows[6]);
 		g1.play();
 		classic();
 		//std::cout << "pong" << std::endl;
@@ -105,7 +106,7 @@ void pongTimer(int i)
 		playerMenuDisplay();
 		glutSetWindow(windows[8]);
 		playerMenuDisplay();
-		glutSetWindow(windows[6]);
+		
 		glutTimerFunc(10, pongTimer, 0);
 	}
 	else

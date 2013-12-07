@@ -14,7 +14,6 @@ void closeQuadMenu(){
 	for(int i=4;i>=0;i--){
 		glutDestroyWindow(windows[i]);
 	}
-	//glutDestroyWindow(windows[12]);
 	glutSetWindow(windows[6]);
 }
 void codeWindow(int button, int state, int x, int y){
@@ -92,7 +91,7 @@ void timerHUD(){
 
 void gameWindow(int gamemode){
 
-	
+	glutDestroyWindow(windows[12]);
 	glutInitWindowSize(mWidth*3/4, mHeight/4);
     glutInitWindowPosition(1100, 20);
 	windows[12]=glutCreateWindow("Controls!");
@@ -139,9 +138,9 @@ void gameWindow(int gamemode){
 	closeQuadMenu();
 	glutSetWindow(windows[6]);
 	activeWindow = windows[6];
-	std::cout << "pretimer" << std::endl;
+	//std::cout << "pretimer" << std::endl;
 	glutTimerFunc(10, pongTimer, 0);
-	std::cout << "posttimer" << std::endl;
+	//std::cout << "posttimer" << std::endl;
 }
 
 void gameDestroy(){
