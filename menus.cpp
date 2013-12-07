@@ -1,9 +1,5 @@
-#include <iostream>
 #include "menus.h"
-#include "windows.h"
-#include <string>
-#include "timers.h"
-#include "drawFunc.h"
+
 using namespace std;
 
 
@@ -16,6 +12,7 @@ extern bool infoCubeNegative;
 extern float infoCubeOld[];
 extern bool infoCubeTurned;
 extern bool infoCubeTurning;
+extern Pong g1;
 
 void gameMenu(int i){
 	gameWindow(i);
@@ -141,3 +138,67 @@ void infoCubeKeys(unsigned char key, int x, int y){
 }
 
 void emptyKeys(unsigned char key, int x, int y){}
+
+
+void handleKeyUp(unsigned char key, int x, int y)
+{
+    switch (key)
+    {
+	case 'w':
+	    {
+		g1.p1.setDir(0);
+		break;
+	    }
+	case 's':
+	    {
+		g1.p1.setDir(0);
+		break;
+	    }
+	case 'o':
+	    {
+		g1.p2.setDir(0);
+		break;
+	    }
+	case 'l':
+	    {
+		g1.p2.setDir(0);
+		break;
+	    }
+    }
+}
+
+void handleKeypress(unsigned char key, int x, int y)
+{
+    switch (key)
+    {
+	case 27: //Escape Key
+	    {
+		//tearDown();
+		exit(0); //Exit the program
+	    }
+	case 'w':
+	    {
+		g1.p1.setDir(1);
+		break;
+	    }
+	case 's':
+	    {
+		g1.p1.setDir(-1);
+		break;
+	    }
+	case 'o':
+	    {
+		g1.p2.setDir(1);
+		break;
+	    }
+	case 'l':
+	    {
+		g1.p2.setDir(-1);
+		break;
+	    }
+	default:
+		g1.b1.setSpeed(3);
+		//std::cout << key << std::endl;
+    }
+    //drawScene();
+}

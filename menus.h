@@ -1,4 +1,13 @@
+#ifndef _MENUS_H
+#define _MENUS_H
+
+#include <iostream>
 #include <cmath>
+#include "windows.h"
+#include <string>
+#include "timers.h"
+#include "drawFunc.h"
+#include "Pong.h"
 
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
@@ -13,3 +22,7 @@ void playerColorMenu(int i);
 void playerControlMenu(int i);
 void infoCubeKeys(unsigned char key, int x, int y);
 void emptyKeys(unsigned char key, int x, int y);
+void handleKeypress(unsigned char key, int x, int y);
+void handleKeyUp(unsigned char key, int x, int y);
+
+#endif

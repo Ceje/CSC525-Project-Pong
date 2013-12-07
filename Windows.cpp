@@ -1,9 +1,5 @@
-#include <iostream>
-#include <string>
-#include "drawFunc.h"
 #include "windows.h"
-#include "menus.h"
-#include "timers.h"
+
 using namespace std;
 
 extern int mWidth, mHeight;
@@ -93,7 +89,16 @@ void timerHUD(){
 	playerMenuInit();
 	glutDisplayFunc(timerDisplay);
 }
+
 void gameWindow(int gamemode){
+
+	
+	glutInitWindowSize(mWidth*3/4, mHeight/4);
+    glutInitWindowPosition(1100, 20);
+	windows[12]=glutCreateWindow("Controls!");
+	initControlMenu();
+	glutDisplayFunc(gameControls);
+
 	glutInitWindowSize(mWidth, mHeight);
 	glutInitWindowPosition(100,20);
 	windows[6]=glutCreateWindow("PLAYBALL!");
@@ -129,16 +134,16 @@ void gameWindow(int gamemode){
 	glutAddMenuEntry("Return to program",1);
 	glutAddMenuEntry("Exit",0);
 	glutAttachMenu(2);
+	glutKeyboardFunc(handleKeypress);
+	glutKeyboardUpFunc(handleKeyUp);
 	closeQuadMenu();
-
-
-	glutInitWindowSize(mWidth*3/4, mHeight/4);
-    glutInitWindowPosition(1100, 20);
-	windows[12]=glutCreateWindow("Controls!");
-	initControlMenu();
-	glutDisplayFunc(gameControls);
-
+	glutSetWindow(windows[6]);
+	activeWindow = windows[6];
+	std::cout << "pretimer" << std::endl;
+	glutTimerFunc(10, pongTimer, 0);
+	std::cout << "posttimer" << std::endl;
 }
+
 void gameDestroy(){
 		for(int i=11;i>5;i--){
 			glutDestroyWindow(windows[i]);
@@ -207,7 +212,7 @@ void quadMenu(){
 	initQuadMenu();
 	glutDisplayFunc(quadMenuDisplay);
 	glutMouseFunc(codeWindow);
-	glutTimerFunc(1000,textTimer,0);
+	glutTimerFunc(500,textTimer,0);
 	
 	windows[4]=glutCreateSubWindow(windows[0],mWidth/2,mWidth/2,mWidth/2,mWidth/2);
 	initQuadMenu();
