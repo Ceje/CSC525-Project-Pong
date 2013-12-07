@@ -44,9 +44,6 @@ using namespace std;
 
 int sHeight = 480;
 int sWidth = 640;
-Paddle p1 = Paddle();
-Paddle p2 = Paddle();
-Ball b1 = Ball();
 Pong g1 = Pong();
 
 void myDisplayCallback();

@@ -1,9 +1,6 @@
-#include <iostream>
 #include "drawFunc.h"
-#include <string>
+
 using namespace std;
-
-
 
 extern int mWidth, mHeight;
 extern int windows[15];
@@ -13,8 +10,7 @@ extern float exitR;
 extern string fillerText[];
 extern float infoCubeAngle[];
 extern bool infoCubeInside;
-
-
+extern Pong g1;
 
 void initQuadMenu()
 {
@@ -24,7 +20,7 @@ void initQuadMenu()
     //glEnable(GL_DEPTH_TEST);
 }
 void playerMenuInit(){
-	glClearColor(.9,.9,.9,0);
+	glClearColor(0.9, 0.9, 0.9, 0.0);
 	gluOrtho2D(-500,500,-500,500);
 }
 void initControlMenu(){
@@ -47,17 +43,17 @@ void cubeControls(){
 	glColor3f(0,1,0);
 	string line="Use 'W' 'A' 'S' and 'D' to navigate the content!";
 	glRasterPos2i(-490, 400);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0; i < line.length(); i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	line="Press 'space' to enter the cube!";
 	glRasterPos2i(-490,300);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0; i < line.length(); i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	line="Left click anywhere to bring up the exit menu.";
 	glRasterPos2i(-490,200);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0; i < line.length(); i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	glFlush();
@@ -67,43 +63,43 @@ void gameControls(){
 	glColor3f(0,1,0);
 	string line="Left click a player score to change their color!";
 	glRasterPos2i(-450, 400);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	line="Right click a player score to change their controls!";
 	glRasterPos2i(-450,300);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	line="Right click the game to bring up the exit menu.";
 	glRasterPos2i(-450,200);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	/*
 	line="Left click the game to pause!";
 	glRasterPos2i(-450,100);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	line="Player 1 controls:"+getPlayerControls(0);
 	glRasterPos2i(-450,0);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	line="Player 2 controls:"+getPlayerControls(1);
 	glRasterPos2i(-450,-100);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	line="Player 3 controls:"+getPlayerControls(2);
 	glRasterPos2i(-450,-200);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	line="Player 4 controls:"+getPlayerControls(3);
 	glRasterPos2i(-450,-300);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	*/
@@ -114,7 +110,7 @@ void menuControls(){
 	glColor3f(0,1,0);
 	string line="Left click an option to start!";
 	glRasterPos2i(-450, 400);
-	for(int i=0;i<line.length();i++){
+	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
 	glFlush();
@@ -149,7 +145,7 @@ void quadMenuDisplay(){
 		}
 		glColor3f(1,1,1);
 		glRasterPos2i(label.length()*-12, 0);
-		for(int i=0;i<label.length();i++){
+		for(unsigned int i=0;i<label.length();i++){
 			glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, label[i]);
 		}
 	glFlush();
@@ -173,16 +169,22 @@ void timerDisplay(){
 	string label="TIME";
 	string time="0:00";
 	glRasterPos2i(-100,200);
-	for(int i=0;i<label.length();i++){
+	for(unsigned int i=0;i<label.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, label[i]);
 	}
 	glColor3f(0,1,0);
 	glRasterPos2i(time.length()*-16,-300);
-	for(int i=0;i<time.length();i++){
+	/*
+	for(unsigned int i=0;i<time.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, time[i]);
 	}
+	*/
+	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '0');
+
 	glFlush();
 }
+
 void playerMenuDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	
@@ -198,7 +200,10 @@ void playerMenuDisplay(){
 	string label;
 	int winID=glutGetWindow();
 	int labelPos[2];
-	string score="Points:0";
+	char numstr[21]; // enough to hold all numbers up to 64-bits
+	//sprintf(numstr, "%d", g1.p1.getScore());
+	string score = "Points: ";
+	//string score="Points:0";
 	int scorePos[2];
 	if(winID==windows[7]){
 		
@@ -215,6 +220,9 @@ void playerMenuDisplay(){
 		labelPos[1]=-250;
 		scorePos[0]=50;
 		scorePos[1]=-250;
+
+		sprintf(numstr, "%d", g1.p1.getScore());
+		score = score + numstr;
 	}
 	else if(winID==windows[8]){
 		
@@ -231,6 +239,9 @@ void playerMenuDisplay(){
 		labelPos[1]=-250;
 		scorePos[0]=-450;
 		scorePos[1]=-250;
+
+		sprintf(numstr, "%d", g1.p2.getScore());
+		score = score + numstr;
 	}
 	else if(winID==windows[9]){
 		label="Player 3";
@@ -264,26 +275,24 @@ void playerMenuDisplay(){
 		scorePos[1]=-250;
 	}
 	glRasterPos2iv(labelPos);
-	for(int i=0;i<label.length();i++){
+	for(unsigned int i=0;i<label.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, label[i]);
 	}
 	glColor3f(0,1,0);//may need adjusting
 	glRasterPos2iv(scorePos);
-	for(int i=0;i<score.length();i++){
+	for(unsigned int i=0;i<score.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, score[i]);
 	}
 	glFlush();
 }
-void draw3dText(float tx,float ty,float tz,
-				float ra, float rx,float ry,float rz, 
-				float sx, float sy, float sz, 
-				string words, float indent)
+
+void draw3dText(float tx,float ty,float tz,float ra, float rx,float ry,float rz, float sx, float sy, float sz, string words, float indent)
 {
 	glPushMatrix();
 		glRotatef(ra,rx,ry,rz);
 		glTranslatef(tx,ty,tz);
 		glScalef(sx,sy,sz);
-		for(int i=0;i<words.length();i++){
+		for(unsigned int i=0;i<words.length();i++){
 			if(i%(int)indent==0&&i>1){
 				glTranslatef((indent*-10.5)/.1,-15/.1,0);
 			}
@@ -292,6 +301,7 @@ void draw3dText(float tx,float ty,float tz,
 		
 	glPopMatrix();
 }
+
 void drawTimedText(){
 	int linePos[]={-450,400};
 	for(int i=0; i<textPos[1];i++){
@@ -307,6 +317,7 @@ void drawTimedText(){
 			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,fillerText[textPos[1]][j]);	
 	}
 }
+
 void drawRotatingCube(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glPushMatrix();
@@ -322,6 +333,7 @@ void drawRotatingCube(){
 	glPopMatrix();
 	glFlush();
 }
+
 void drawInfoCube(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
@@ -345,6 +357,7 @@ void drawInfoCube(){
 	glPopMatrix();
 	glFlush();
 }
+
 void changeInfoCubeView(){
 	glMatrixMode(GL_PROJECTION_MATRIX);
 	glLoadIdentity();
@@ -360,6 +373,7 @@ void changeInfoCubeView(){
 	}
 	infoCubeInside=!infoCubeInside;
 }
+
 void displayExit(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glPushMatrix();
@@ -369,19 +383,71 @@ void displayExit(){
 	glPopMatrix();
 	glFlush();
 }
+
 void doubles(){
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	glPointSize(1);
+    glLineWidth(1);
+
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_QUADS);
+
+	glVertex2i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"));
+	glVertex2i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"));
+	glVertex2i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"));
+	glVertex2i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"));
+
+	glVertex2i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"));
+	glVertex2i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"));
+	glVertex2i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"));
+	glVertex2i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"));
+
+	glVertex2i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"));
+	glVertex2i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"));
+	glVertex2i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"));
+	glVertex2i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"));
+
+    glEnd();
+
 	glFlush();
 }
+
 void threeway(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glFlush();
 }
+
 void quad(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glFlush();
 }
+
 void classic(){
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	glPointSize(1);
+    glLineWidth(1);
+
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_QUADS);
+
+	glVertex2i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"));
+	glVertex2i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"));
+	glVertex2i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"));
+	glVertex2i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"));
+
+	glVertex2i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"));
+	glVertex2i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"));
+	glVertex2i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"));
+	glVertex2i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"));
+
+	glVertex2i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"));
+	glVertex2i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"));
+	glVertex2i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"));
+	glVertex2i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"));
+
+    glEnd();
+
 	glFlush();
 }

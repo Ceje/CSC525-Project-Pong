@@ -44,7 +44,7 @@ void Ball::setDir()
 	{
 		yDir*=-1;
 	}
-	std::cout << xDir << "::" << yDir << std::endl;
+	//std::cout << xDir << "::" << yDir << std::endl;
 }
 
 void Ball::setSpeed(int s)

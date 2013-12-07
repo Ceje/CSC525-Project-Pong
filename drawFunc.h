@@ -1,8 +1,15 @@
 //drawFunc.h
 //this file just contains the function declarations
 //the implementations will be in drawFunc.cpp
+
+#ifndef _DRAWFUNC_H
+#define _DRAWFUNC_H
+
+#include <iostream>
 #include <cmath>
 #include <string>
+#include "Pong.h"
+
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
 #include <GLUT/glut.h>
@@ -32,3 +39,5 @@ void changeInfoCubeView();
 void initInfoCube();
 void reshape(int w, int h);
 void draw3dText(float tx,float ty,float tz,float ra, float rx,float ry,float rz, float sx, float sy, float sz, std::string words, float indent);
+
+#endif

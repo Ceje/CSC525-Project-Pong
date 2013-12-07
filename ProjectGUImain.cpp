@@ -28,17 +28,16 @@
 #include "windows.h"
 #include "menus.h"
 #include "timers.h"
-
+#include "Pong.h"
 
 
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>
 #include <GLUT/glut.h>
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #else
 #include <GL/glut.h>
 #endif
-
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 using namespace std;
 int mWidth=1000;
@@ -58,6 +57,7 @@ bool infoCubeTurning=false;
 bool infoCubeInside=false;
 int activeWindow=0;
 string fillerText[]={"bob","Steve", "larry", "Lerooooooooooooooooooooooooooy"};
+Pong g1 = Pong();
 
 
 int main(int argc, char** argv)
@@ -75,14 +75,14 @@ int main(int argc, char** argv)
 
     glutInit(& argc, argv);
     glutInitWindowSize(mWidth, mHeight);
+
+	g1 = Pong(mWidth, mHeight);
+
     glutInitWindowPosition(100, 20);
 	glEnable(GL_DEPTH_TEST);
 	lnCount=4;
     quadMenu();
-
 	
     glutMainLoop();
     return 0;
 }
-
-

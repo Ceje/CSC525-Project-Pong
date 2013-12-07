@@ -1,9 +1,7 @@
-#include <iostream>
-#include <string>
-#include "drawFunc.h"
-#include "windows.h"
-#include "menus.h"
+#include "timers.h"
+
 using namespace std;
+
 extern float cubeR;
 extern int windows[];
 extern int textPos[];
@@ -18,6 +16,9 @@ extern bool infoCubeNegative;
 extern bool infoCubeTurned;
 extern bool infoCubeTurning;
 extern int activeWindow;
+extern Pong g1;
+
+
 void cubeTimer(int i){
 	
 	
@@ -92,4 +93,21 @@ void infoCubeTurn(int i){
 		infoCubeTurning=false;
 	}
 }
-	
+
+void pongTimer(int i)
+{
+	if(activeWindow == windows[6])
+	{
+		g1.play();
+		classic();
+		//std::cout << "pong" << std::endl;
+		glutSetWindow(windows[7]);
+		playerMenuDisplay();
+		glutSetWindow(windows[8]);
+		playerMenuDisplay();
+		glutSetWindow(windows[6]);
+		glutTimerFunc(10, pongTimer, 0);
+	}
+	else
+		std::cout << "Current: " << activeWindow << "Desired: " << windows[6] << std::endl;
+}
