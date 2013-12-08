@@ -57,6 +57,22 @@ bool infoCubeTurning=false;
 bool infoCubeInside=false;
 int activeWindow=0;
 int cameraTop=0;
+string blerbText[]={
+"Companies that do not employ  computer programmers are      willing to contract their     services for as much as $100  to $400 per hour, according to Ask IT Career Coach, a career informational website."
+,"According to the Indeed       website, starting salaries in the computer programming field in January 2012 range from   $59,000 to $112,000 per year. "
+,"Computer programming is a     career that can be performed  from anywhere you can carry a laptop computer and that gives you access to the Internet. "
+,"Job security is an advantage  enjoyed by most computer      programmers. Computer         technology advances at a fast rate, keeping the demand for  computer programmers at a high level."
+,"Intellectually challenging    work: Computer programmers are required to use their        creativity, intellect,        personal vision, problem      solving skills, & initiative." 
+,"Computer Science enables      people to create their own    worlds and rules within the   programs."
+,"Use your experience with      computer systems to find or   even create employment        opportunities in other fields"
+,"Enjoy math? Like language?    study computer science today!"
+,"Every job is a puzzle just    waiting to be solved in       computer science"
+,"Learn the basis of computer   thought and implimentation in computer science"
+,"Learn to automate your problems with science, COMPUTER      SCIENCE!"
+,"Recursion holds the answers,  Learn it today in the field of computer science."
+};
+
+
 string fillerText[]={"bob","Steve", "larry", "Lerooooooooooooooooooooooooooy"};
 Pong g1 = Pong();
 

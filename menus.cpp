@@ -3,7 +3,7 @@
 using namespace std;
 
 
-
+extern int cameraTop;
 extern int mWidth, mHeight;
 extern int windows[15];
 extern int infoCubeRot;
@@ -114,6 +114,8 @@ void infoCubeKeys(unsigned char key, int x, int y){
 			rotateCameraRight();
 		}
 		else{
+			cameraTop=0;
+			setCubeCamera();
 			infoCubeTurning=true;
 			switch(key){
 				case 'w':

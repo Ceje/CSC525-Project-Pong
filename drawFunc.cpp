@@ -12,6 +12,7 @@ extern float infoCubeAngle[];
 extern bool infoCubeInside;
 extern int cameraTop;
 extern Pong g1;
+extern string blerbText[];
 
 void initQuadMenu()
 {
@@ -32,24 +33,32 @@ void rotateCameraLeft(){
 		cameraTop=0;
 	}
 	//cout<<cameraTop<<"\n";
+	setCubeCamera();
+}
+void setCubeCamera(){
+	int distance = 1000;
+	if(infoCubeInside){
+		distance=100;
+	}
 	glMatrixMode(GL_PROJECTION_MATRIX);
 	glLoadIdentity();
 	glFrustum(-300, 300, -300, 300,350,1000);
 	switch(abs(cameraTop)){
 	case 0:
-		gluLookAt(0,0,1000, 0,0,0, 0,1,0);
+		gluLookAt(0,0,distance, 0,0,0, 0,1,0);
 		break;
 	case 1:
-		gluLookAt(0,0,1000, 0,0,0, 1,0,0);
+		gluLookAt(0,0,distance, 0,0,0, 1,0,0);
 		break;
 	case 2:
-		gluLookAt(0,0,1000, 0,0,0, 0,-1,0);
+		gluLookAt(0,0,distance, 0,0,0, 0,-1,0);
 		break;
 	case 3:
-		gluLookAt(0,0,1000, 0,0,0, -1,0,0);
+		gluLookAt(0,0,distance, 0,0,0, -1,0,0);
 		break;
 	}
 	drawInfoCube();
+
 }
 void rotateCameraRight(){
 	int distance = 1000;
@@ -61,24 +70,7 @@ void rotateCameraRight(){
 		cameraTop=3;
 	}
 	//cout<<cameraTop<<"\n";
-	glMatrixMode(GL_PROJECTION_MATRIX);
-	glLoadIdentity();
-	glFrustum(-300, 300, -300, 300,350,1000);
-	switch(abs(cameraTop)){
-	case 0:
-		gluLookAt(0,0,1000, 0,0,0, 0,1,0);
-		break;
-	case 1:
-		gluLookAt(0,0,1000, 0,0,0, 1,0,0);
-		break;
-	case 2:
-		gluLookAt(0,0,1000, 0,0,0, 0,-1,0);
-		break;
-	case 3:
-		gluLookAt(0,0,1000, 0,0,0, -1,0,0);
-		break;
-	}
-	drawInfoCube();
+	setCubeCamera();
 }
 void playerMenuInit(){
 	glClearColor(0.9, 0.9, 0.9, 0.0);
@@ -103,7 +95,7 @@ void emptyDisplay(){
 void cubeControls(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0,1,0);
-	string line="Use 'W' 'A' 'S' and 'D' to navigate the content!";
+	string line="Use 'W' 'A' 'S' and 'D' to turn the cube!";
 	glRasterPos2i(-490, 400);
 	for(unsigned int i=0; i < line.length(); i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
@@ -113,8 +105,13 @@ void cubeControls(){
 	for(unsigned int i=0; i < line.length(); i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
-	line="Left click anywhere to bring up the exit menu.";
+	line="Press 'e' and 'q' to turn the camera.";
 	glRasterPos2i(-490,200);
+	for(unsigned int i=0; i < line.length(); i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Left click anywhere to bring up the exit menu.";
+	glRasterPos2i(-490,100);
 	for(unsigned int i=0; i < line.length(); i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
@@ -418,20 +415,21 @@ void drawInfoCube(){
 		
 		glColor3f(0,1,0);
 		//cout<<"drew cube";
-		draw3dText(0,0,(cube/2)+5,0,1,0,0,1,1,1, "1",2);
-		draw3dText((-cube/4),(cube/4),(cube/2)+5,90,1,0,0,1,1,1, "2",2);
-		draw3dText((-cube/4),(cube/4),(cube/2)+5,-90,1,0,0,1,1,1, "3",2);
-		draw3dText((-cube/4),(cube/4),(cube/2)+5,90,0,1,0,1,1,1, "4",2);
-		draw3dText((-cube/4),(cube/4),(cube/2)+5,-90,0,1,0,1,1,1, "5",2);
-		draw3dText((-cube/4),(cube/4),(cube/2)+5,180,1,0,0,1,1,1, "6",2);
+		draw3dText((-cube/2.2),200,(cube/2)+5,0,1,0,0,.25,.25,.25, blerbText[0],30);
+		draw3dText((-cube/2.2),200,(cube/2)+5,90,1,0,0,.25,.25,.25, blerbText[1],30);
+		draw3dText((-cube/2.2),200,(cube/2)+5,-90,1,0,0,.25,.25,.25, blerbText[2],30);
+		draw3dText((-cube/2.2),200,(cube/2)+5,90,0,1,0,.25,.25,.25, blerbText[3],30);
+		draw3dText((-cube/2.2),200,(cube/2)+5,-90,0,1,0,.25,.25,.25, blerbText[4],30);
+		draw3dText((-cube/2.2),200,(cube/2)+5,180,0,1,0,.25,.25,.25, blerbText[5],30);
 		glPushMatrix();
-			glRotatef(180, 0,0,1);
-			draw3dText(0,0,(cube/2)-5, 0,0,0,1,1,1,1, "1",2);
-			draw3dText((-cube/4),(cube/4),(cube/2)-5,90,1,0,0,1,1,1, "2",2);
-			draw3dText((-cube/4),(cube/4),(cube/2)-5,-90,1,0,0,1,1,1, "3",2);
-			draw3dText((-cube/4),(cube/4),(cube/2)-5,90,0,1,0,1,1,1, "4",2);
-			draw3dText((-cube/4),(cube/4),(cube/2)-5,-90,0,1,0,1,1,1, "5",2);
-			draw3dText((-cube/4),(cube/4),(cube/2)-5,180,1,0,0,1,1,1, "6",2);
+			//glRotatef(180, 1,0,0);
+			
+			draw3dText((-cube/2.2),200,-(cube/2)+5, 0,0,0,1,.25,.25,.25, blerbText[6],30);
+			draw3dText((-cube/2.2),200,-(cube/2)+5,90,1,0,0,.25,.25,.25, blerbText[7],30);
+			draw3dText((-cube/2.2),200,-(cube/2)+5,-90,1,0,0,.25,.25,.25, blerbText[8],30);
+			draw3dText((-cube/2.2),200,-(cube/2)+5,90,0,1,0,.25,.25,.25, blerbText[9],30);
+			draw3dText((-cube/2.2),200,-(cube/2)+5,-90,0,1,0,.25,.25,.25, blerbText[10],30);
+			draw3dText((-cube/2.2),200,-(cube/2)+5,180,1,0,0,.25,.25,.25, blerbText[11],30);
 		glPopMatrix();
 		//cout<<"drew text";
 	glPopMatrix();

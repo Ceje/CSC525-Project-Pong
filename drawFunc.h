@@ -39,6 +39,7 @@ void changeInfoCubeView();
 void initInfoCube();
 void rotateCameraRight();
 void rotateCameraLeft();
+void setCubeCamera();
 void reshape(int w, int h);
 void draw3dText(float tx,float ty,float tz,float ra, float rx,float ry,float rz, float sx, float sy, float sz, std::string words, float indent);
 
