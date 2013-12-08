@@ -48,14 +48,15 @@ int textPos[]={0,0};
 int line=0;
 int lnCount=0;
 float exitR=0;
-float infoCubeAngle[]={0,0,0};
-float infoCubeOld[]={0,0,0};
+float infoCubeAngle[]={0,0,0,0};
+float infoCubeOld[]={0,0,0,0};
 int infoCubeRot=0;
 bool infoCubeNegative=false;
 bool infoCubeTurned=false;
 bool infoCubeTurning=false;
 bool infoCubeInside=false;
 int activeWindow=0;
+int cameraTop=0;
 string fillerText[]={"bob","Steve", "larry", "Lerooooooooooooooooooooooooooy"};
 Pong g1 = Pong();
 
@@ -79,7 +80,6 @@ int main(int argc, char** argv)
 	g1 = Pong(mWidth, mHeight);
 
     glutInitWindowPosition(100, 20);
-	glEnable(GL_DEPTH_TEST);
 	lnCount=4;
     quadMenu();
 	

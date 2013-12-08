@@ -102,38 +102,64 @@ void playerControlMenu(int i){
 
 void infoCubeKeys(unsigned char key, int x, int y){
 	if(infoCubeTurning==false){
-		infoCubeTurning=true;
-		switch(key){
-			case 'w':
-				infoCubeRot=0;
-				infoCubeNegative=false;
-				infoCubeTurned=!infoCubeTurned;
-				break;
-			case 'a':
-				infoCubeRot=1;
-				infoCubeNegative=true;
-				break;
-			case 's':
-				infoCubeRot=0;
-				infoCubeNegative=true;
-				infoCubeTurned=!infoCubeTurned;
-				break;
-			case 'd':
-				infoCubeRot=1;
-				infoCubeNegative=false;
-				break;
-			case ' ':
-				changeInfoCubeView();
-			default:
-				infoCubeRot=1;
-				infoCubeNegative=false;
-				break;
+		if(key==' '){
+			changeInfoCubeView();
+			glutSetWindow(windows[6]);
+			drawInfoCube();
 		}
-		for(int i=0;i<3;i++){
-			infoCubeAngle[i]=(int)infoCubeAngle[i]%360;
-			infoCubeOld[i]=infoCubeAngle[i];
+		else if(key=='q'){
+			rotateCameraLeft();
 		}
-		glutTimerFunc(25,infoCubeTurn,0);
+		else if(key=='e'){
+			rotateCameraRight();
+		}
+		else{
+			infoCubeTurning=true;
+			switch(key){
+				case 'w':
+					infoCubeRot=0;
+					infoCubeNegative=false;
+					break;
+				case 'a':
+					infoCubeRot=1;
+					infoCubeNegative=false;
+					break;
+				case 's':
+					infoCubeRot=0;
+					infoCubeNegative=true;
+					break;
+				case 'd':
+					infoCubeRot=1;
+					infoCubeNegative=true;
+					break;
+				default:
+					infoCubeRot=1;
+					infoCubeNegative=false;
+					break;
+			}
+			for(int i=0;i<4;i++){
+				infoCubeAngle[i]=(int)infoCubeAngle[i]%360;
+				infoCubeOld[i]=infoCubeAngle[i];
+			}
+			if(infoCubeRot==1){
+				int ws=abs(infoCubeAngle[0]);
+				int ad=abs(infoCubeAngle[1]);
+				if(ws>=180){
+					infoCubeNegative=!infoCubeNegative;
+				}
+				
+				if((ws==90||ws==270)&&!(ad==90||ad==270)){
+					
+					if(ad>=180){
+						infoCubeNegative=!infoCubeNegative;
+					}
+					infoCubeRot=2;
+				}
+			}
+
+			//cout<<key<<"\n";
+			glutTimerFunc(25,infoCubeTurn,0);
+		}
 	}
 }
 

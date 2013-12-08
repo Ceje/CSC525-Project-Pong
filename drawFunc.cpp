@@ -10,14 +10,75 @@ extern float exitR;
 extern string fillerText[];
 extern float infoCubeAngle[];
 extern bool infoCubeInside;
+extern int cameraTop;
 extern Pong g1;
 
 void initQuadMenu()
 {
+	glEnable(GL_DEPTH_TEST);
     glClearColor(0,0,0,0);		//Specify Background Color: white
     glOrtho(-500, 500, -500, 500,-500,500);	//Define the boundries of the viewing area
     glutIgnoreKeyRepeat(1);		//Tells glut to ignore key repeat from holding down a key.
     //glEnable(GL_DEPTH_TEST);
+}
+void rotateCameraLeft(){
+	int distance = 1000;
+	cameraTop++;
+	if(infoCubeInside){
+		int distance=100;
+	}
+
+	if(cameraTop>3){
+		cameraTop=0;
+	}
+	//cout<<cameraTop<<"\n";
+	glMatrixMode(GL_PROJECTION_MATRIX);
+	glLoadIdentity();
+	glFrustum(-300, 300, -300, 300,350,1000);
+	switch(abs(cameraTop)){
+	case 0:
+		gluLookAt(0,0,1000, 0,0,0, 0,1,0);
+		break;
+	case 1:
+		gluLookAt(0,0,1000, 0,0,0, 1,0,0);
+		break;
+	case 2:
+		gluLookAt(0,0,1000, 0,0,0, 0,-1,0);
+		break;
+	case 3:
+		gluLookAt(0,0,1000, 0,0,0, -1,0,0);
+		break;
+	}
+	drawInfoCube();
+}
+void rotateCameraRight(){
+	int distance = 1000;
+	cameraTop--;
+	if(infoCubeInside){
+		int distance=100;
+	}
+	if(cameraTop<0){
+		cameraTop=3;
+	}
+	//cout<<cameraTop<<"\n";
+	glMatrixMode(GL_PROJECTION_MATRIX);
+	glLoadIdentity();
+	glFrustum(-300, 300, -300, 300,350,1000);
+	switch(abs(cameraTop)){
+	case 0:
+		gluLookAt(0,0,1000, 0,0,0, 0,1,0);
+		break;
+	case 1:
+		gluLookAt(0,0,1000, 0,0,0, 1,0,0);
+		break;
+	case 2:
+		gluLookAt(0,0,1000, 0,0,0, 0,-1,0);
+		break;
+	case 3:
+		gluLookAt(0,0,1000, 0,0,0, -1,0,0);
+		break;
+	}
+	drawInfoCube();
 }
 void playerMenuInit(){
 	glClearColor(0.9, 0.9, 0.9, 0.0);
@@ -28,9 +89,10 @@ void initControlMenu(){
 	gluOrtho2D(-500,500,-500,500);
 }
 void initInfoCube(){
+	glEnable(GL_DEPTH_TEST);
 	glClearColor(1,1,1,0);
-	glFrustum(-500, 500, -500, 500,350,1000);
-	//glOrtho(-600,600,-600,600,0,1000);
+
+	glFrustum(-300, 300, -300, 300,350,1000);
 	gluLookAt(0,0,1000, 0,0,0, 0,1,0);
 }
 
@@ -322,14 +384,19 @@ void drawRotatingCube(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 	glPushMatrix();
 		glColor3f(0,0,1);
+		glTranslatef(0,0,-350);
 		glRotatef(cubeR,1,1,1);
 		glPushMatrix();
 			int cube=300;
 			glutSolidCube(cube);		
 		glPopMatrix();
 		glColor3f(0,1,0);
-		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,0,1,0,0,.1,.1,.1, "10010010101010101",2);
-		draw3dText((-cube/2)+5,(cube/2)-15,(cube/2)+1,90,1,0,0,.2,.2,.2, "10010010101010101",3);
+		draw3dText(-75,75,(cube/2)+1,0,1,0,0,.1,.1,.1, "100100101010101011001001010101010110010010101010101100100101010101011001001010101010110010010101010101",8);
+		draw3dText(-75,75,(cube/2)+1,90,1,0,0,.1,.1,.1, "100100101010101011001001010101010110010010101010101100100101010101011001001010101010110010010101010101",8);
+		draw3dText(-75,75,(cube/2)+1,180,1,0,0,.1,.1,.1, "100100101010101011001001010101010110010010101010101100100101010101011001001010101010110010010101010101",8);
+		draw3dText(-75,75,(cube/2)+1,270,1,0,0,.1,.1,.1, "100100101010101011001001010101010110010010101010101100100101010101011001001010101010110010010101010101",8);
+		draw3dText(-75,75,(cube/2)+1,-90,0,1,0,.1,.1,.1, "100100101010101011001001010101010110010010101010101100100101010101011001001010101010110010010101010101",8);
+		draw3dText(-75,75,(cube/2)+1,90,0,1,0,.1,.1,.1, "100100101010101011001001010101010110010010101010101100100101010101011001001010101010110010010101010101",8);
 	glPopMatrix();
 	glFlush();
 }
@@ -337,22 +404,35 @@ void drawRotatingCube(){
 void drawInfoCube(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
+
 	glColor3f(0,0,0);
 	glPushMatrix();
 	//cout<<"drew grid";
+		
 		glRotatef(infoCubeAngle[0],1,0,0);
 		glRotatef(infoCubeAngle[1],0,1,0);
 		glRotatef(infoCubeAngle[2],0,0,1);
 		int cube=900;
 		glutSolidCube(cube);		
 		glColor3f(0,1,0);
+		
+		glColor3f(0,1,0);
 		//cout<<"drew cube";
-		draw3dText(0,0,(cube/2)+1,0,1,0,0,1,1,1, "1",2);
-		draw3dText((-cube/4),(cube/4),(cube/2)+1,90,1,0,0,1,1,1, "2",2);
-		draw3dText((-cube/4),(cube/4),(cube/2)+1,-90,1,0,0,1,1,1, "3",2);
-		draw3dText((-cube/4),(cube/4),(cube/2)+1,90,0,1,0,1,1,1, "4",2);
-		draw3dText((-cube/4),(cube/4),(cube/2)+1,-90,0,1,0,1,1,1, "5",2);
-		draw3dText((-cube/4),(cube/4),(cube/2)+1,180,1,0,0,1,1,1, "6",2);
+		draw3dText(0,0,(cube/2)+5,0,1,0,0,1,1,1, "1",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+5,90,1,0,0,1,1,1, "2",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+5,-90,1,0,0,1,1,1, "3",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+5,90,0,1,0,1,1,1, "4",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+5,-90,0,1,0,1,1,1, "5",2);
+		draw3dText((-cube/4),(cube/4),(cube/2)+5,180,1,0,0,1,1,1, "6",2);
+		glPushMatrix();
+			glRotatef(180, 0,0,1);
+			draw3dText(0,0,(cube/2)-5, 0,0,0,1,1,1,1, "1",2);
+			draw3dText((-cube/4),(cube/4),(cube/2)-5,90,1,0,0,1,1,1, "2",2);
+			draw3dText((-cube/4),(cube/4),(cube/2)-5,-90,1,0,0,1,1,1, "3",2);
+			draw3dText((-cube/4),(cube/4),(cube/2)-5,90,0,1,0,1,1,1, "4",2);
+			draw3dText((-cube/4),(cube/4),(cube/2)-5,-90,0,1,0,1,1,1, "5",2);
+			draw3dText((-cube/4),(cube/4),(cube/2)-5,180,1,0,0,1,1,1, "6",2);
+		glPopMatrix();
 		//cout<<"drew text";
 	glPopMatrix();
 	glFlush();
@@ -367,7 +447,7 @@ void changeInfoCubeView(){
 		gluLookAt(0,0,100, 0,0,0, 0,1,0);
 	}
 	else{
-		glFrustum(-500, 500, -500, 500,350,1000);
+		glFrustum(-300, 300, -300, 300,350,1000);
 		//glOrtho(-600,600,-600,600,0,1000);
 		gluLookAt(0,0,1000, 0,0,0, 0,1,0);
 	}

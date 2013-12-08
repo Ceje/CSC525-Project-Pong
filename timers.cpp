@@ -73,10 +73,8 @@ void wordSpinTimer(int i){
 }
 
 void infoCubeTurn(int i){
-	if(infoCubeTurned&&infoCubeRot==1){
-		infoCubeRot++;
-		infoCubeNegative=!infoCubeNegative;
-	}
+	int infoCubeTurner=abs(infoCubeAngle[0]);
+	
 	if(infoCubeNegative){
 		infoCubeAngle[infoCubeRot]--;
 	}
@@ -90,6 +88,9 @@ void infoCubeTurn(int i){
 		glutTimerFunc(10,infoCubeTurn,0);
 	}
 	else{
+		/*for(int i=0; i<4;i++){
+		cout<<"Angle "<<i <<": "<<infoCubeAngle[i]<<"\n";
+		}*/
 		infoCubeTurning=false;
 	}
 }
