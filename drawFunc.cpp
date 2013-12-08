@@ -150,6 +150,7 @@ void quadMenuDisplay(){
 		}
 	glFlush();
 }
+
 void timerDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	
@@ -167,20 +168,23 @@ void timerDisplay(){
 		glVertex2i(mWidth/2,0);
 	glEnd();
 	string label="TIME";
-	string time="0:00";
+	char numstr[21];
+	sprintf(numstr, "%d", g1.getTime());
+	string time= "";
+	time = time + numstr;
 	glRasterPos2i(-100,200);
 	for(unsigned int i=0;i<label.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, label[i]);
 	}
 	glColor3f(0,1,0);
 	glRasterPos2i(time.length()*-16,-300);
-	/*
+	
 	for(unsigned int i=0;i<time.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, time[i]);
 	}
-	*/
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '0');
+
+	//glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+	//glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '0');
 
 	glFlush();
 }
