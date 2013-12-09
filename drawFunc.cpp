@@ -458,13 +458,6 @@ void classic(){
 	//gluLookAt(10, 15, 50, 0, 0, 0, 0, 1, 0);
 
     glColor3f(1.0, 1.0, 1.0);
-    glBegin(GL_QUADS);
-
-	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
-	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
-	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 0);
-	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 0);
-	glEnd();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glEnable(GL_POLYGON_OFFSET_LINE);
@@ -476,11 +469,6 @@ void classic(){
 	glVertex3i(-500, -380, 0);
 	glVertex3i(500, -380, 0);
 	glVertex3i(500, 380, 0);
-
-	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
-	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
-	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 0);
-	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 0);
 	glEnd();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -488,10 +476,31 @@ void classic(){
 	glColor3f(1.0, 1.0, 1.0);
 
 	glBegin(GL_QUADS);
+	
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 0);
+
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 10);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 10);
+
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 10);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 10);
+
 	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 10);
 	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 10);
 	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 10);
 	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 10);
+
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 10);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 10);
 	glEnd();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -500,10 +509,25 @@ void classic(){
 	glColor3f(0.0, 1.0, 0.0);
 
 	glBegin(GL_QUADS);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 10);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 10);
+
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 10);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 10);
+
 	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 10);
 	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 10);
 	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 10);
 	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 10);
+
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 10);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 10);
 	glEnd();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -511,17 +535,107 @@ void classic(){
 	glColor3f(1.0, 1.0, 1.0);
 
 	glBegin(GL_QUADS);
-	glVertex2i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"));
-	glVertex2i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"));
-	glVertex2i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"));
-	glVertex2i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"));
+	glVertex3i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"), 0); //front
+	glVertex3i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"), 0);
+	glVertex3i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"), 5);
+	glVertex3i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"), 5);
 
-	glVertex2i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"));
-	glVertex2i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"));
-	glVertex2i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"));
-	glVertex2i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"));
+	glVertex3i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"), 0); //back
+	glVertex3i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"), 0);
+	glVertex3i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"), 5);
+	glVertex3i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"), 5);
 
+	glVertex3i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"), 0); //left
+	glVertex3i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"), 5);
+	glVertex3i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"), 5);
+	glVertex3i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"), 0);
+
+	glVertex3i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"), 0); //right
+	glVertex3i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"), 0);
+	glVertex3i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"), 5);
+	glVertex3i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"), 5);
+
+	glVertex3i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"), 5); //top
+	glVertex3i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"), 5);
+	glVertex3i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"), 5);
+	glVertex3i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"), 5);
     glEnd();
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glEnable(GL_POLYGON_OFFSET_LINE);
+	glPolygonOffset(-1.f, -1.f);
+	glColor3f(0.0, 1.0, 0.0);
+
+	glBegin(GL_QUADS);
+	glVertex3i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"), 0);
+	glVertex3i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"), 0);
+	glVertex3i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"), 5);
+	glVertex3i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"), 5);
+
+	glVertex3i(g1.b1.getVtx("tl", "x"), g1.b1.getVtx("tl", "y"), 5);
+	glVertex3i(g1.b1.getVtx("bl", "x"), g1.b1.getVtx("bl", "y"), 5);
+	glVertex3i(g1.b1.getVtx("br", "x"), g1.b1.getVtx("br", "y"), 5);
+	glVertex3i(g1.b1.getVtx("tr", "x"), g1.b1.getVtx("tr", "y"), 5);
+	glEnd();
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glDisable(GL_POLYGON_OFFSET_LINE);
+	glColor3f(1.0, 1.0, 1.0);
+
+	glBegin(GL_QUADS);
+	
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"), 0);
+	glVertex3i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"), 0);
+
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 10);
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 10);
+
+	glVertex3i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"), 0);
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 10);
+	glVertex3i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"), 10);
+
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 10);
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 10);
+	glVertex3i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"), 10);
+	glVertex3i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"), 10);
+
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"), 0);
+	glVertex3i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"), 10);
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 10);
+	glEnd();
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glEnable(GL_POLYGON_OFFSET_LINE);
+	glPolygonOffset(-1.f, -1.f);
+	glColor3f(0.0, 1.0, 0.0);
+
+	glBegin(GL_QUADS);
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 10);
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 10);
+
+	glVertex3i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"), 0);
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 10);
+	glVertex3i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"), 10);
+
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 10);
+	glVertex3i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"), 10);
+	glVertex3i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"), 10);
+	glVertex3i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"), 10);
+
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"), 0);
+	glVertex3i(g1.p2.getVtx("bt", "x"), g1.p2.getVtx("bt", "y"), 10);
+	glVertex3i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"), 10);
+	glEnd();
 
 	glFlush();
 }
