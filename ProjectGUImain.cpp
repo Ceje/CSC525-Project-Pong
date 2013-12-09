@@ -136,7 +136,7 @@ int main(int argc, char** argv)
     glutInit(& argc, argv);
     glutInitWindowSize(mWidth, mHeight);
 
-	g1 = Pong(mWidth, mHeight);
+	g1 = Pong(mWidth, mHeight*3/4);
 
     glutInitWindowPosition(100, 20);
 	glutInitDisplayMode(GLUT_DEPTH);

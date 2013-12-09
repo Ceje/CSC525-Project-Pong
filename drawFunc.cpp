@@ -26,10 +26,12 @@ void initQuadMenu()
 void initPong()
 {
 	glClearColor(0, 0, 0, 0);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
 	//glOrtho(-500, 500, -500, 500, -500, 500);
 	glFrustum(-500, 500, -500, 500, 125, 250);
 	glutIgnoreKeyRepeat(1);
-	gluLookAt(5, -5, 150, 0, 0, 0, 0, 1, 0);
+	gluLookAt(0, -10, 200, 0, 0, 0, 0, 1, 0);
 }
 void rotateCameraLeft(){
 	int distance = 1000;
@@ -579,7 +581,12 @@ void classic(){
 	glPolygonOffset(-1.f, -1.f);
 	glColor3f(0.0, 1.0, 0.0);
 
-	glBegin(GL_QUADS);
+	glBegin(GL_QUADS);			
+	glVertex3i(-500, 380, 0);	//Boundry Outline
+	glVertex3i(-500, -380, 0);
+	glVertex3i(500, -380, 0);
+	glVertex3i(500, 380, 0);
+
 	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
 	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
 	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 0);
@@ -591,10 +598,10 @@ void classic(){
 	glColor3f(1.0, 1.0, 1.0);
 
 	glBegin(GL_QUADS);
-	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 5);
-	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 5);
-	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 5);
-	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 5);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 10);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 10);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 10);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 10);
 	glEnd();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -603,10 +610,10 @@ void classic(){
 	glColor3f(0.0, 1.0, 0.0);
 
 	glBegin(GL_QUADS);
-	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 5);
-	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 5);
-	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 5);
-	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 5);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 10);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 10);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 10);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 10);
 	glEnd();
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
