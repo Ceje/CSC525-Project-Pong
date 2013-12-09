@@ -79,6 +79,7 @@ int main(int argc, char** argv)
 	g1 = Pong(mWidth, mHeight);
 
     glutInitWindowPosition(100, 20);
+	glutInitDisplayMode(GLUT_DEPTH);
 	glEnable(GL_DEPTH_TEST);
 	lnCount=4;
     quadMenu();
