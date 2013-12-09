@@ -18,6 +18,7 @@ extern bool infoCubeTurned;
 extern bool infoCubeTurning;
 extern int activeWindow;
 extern Pong g1;
+extern string codeText[];
 
 
 void cubeTimer(int i){
@@ -60,24 +61,28 @@ void textTimer(int i){
 }
 
 void codeTimer(int i){
-	line=fillerText[codePos[1]].length();
+	line=codeText[codePos[1]].length();
 	codePos[0]++;
 	if(codePos[0]==line){
 		codePos[0]=-1;
 		codePos[1]++;
 		if(codePos[1]==lnCount){
-			//getnextsetoflines();
+			//wait for keypress
 		}
 		else{
-			glutSetWindow(windows[6]);
-			codeDisplay();
-			glutTimerFunc(50,codeTimer,0);
+			if(activeWindow==1){
+				glutSetWindow(windows[6]);
+				codeDisplay();
+				glutTimerFunc(50,codeTimer,0);
+			}
 		}
 	}
 	else{
-		glutSetWindow(windows[6]);
-		codeDisplay();
-		glutTimerFunc(50,codeTimer,0);
+		if(activeWindow==1){
+				glutSetWindow(windows[6]);
+				codeDisplay();
+				glutTimerFunc(50,codeTimer,0);
+		}
 	}
 
 }

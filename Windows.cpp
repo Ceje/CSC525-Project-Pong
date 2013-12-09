@@ -17,8 +17,17 @@ void closeQuadMenu(){
 	glutSetWindow(windows[6]);
 }
 void codeWindow(int button, int state, int x, int y){
+	glutDestroyWindow(windows[12]);
+	glutInitWindowSize(mWidth*0.6, mHeight/4);
+    glutInitWindowPosition(1200, 20);
+	windows[12]=glutCreateWindow("Controls!");
+	initControlMenu();
+	glutDisplayFunc(codeControls);
+
 	glutInitWindowSize(mWidth, mHeight);
 	glutInitWindowPosition(100,20);
+	clearBuffer();
+	initCode();
 	windows[6]=glutCreateWindow("FREE SAMPLES!");
 	initControlMenu();
 	glutDisplayFunc(codeDisplay);
@@ -31,12 +40,7 @@ void codeWindow(int button, int state, int x, int y){
 	closeQuadMenu();
 	glutTimerFunc(500,codeTimer,0);
 
-	glutDestroyWindow(windows[12]);
-	glutInitWindowSize(mWidth/2, mHeight/4);
-    glutInitWindowPosition(1200, 20);
-	windows[12]=glutCreateWindow("Controls!");
-	initControlMenu();
-	glutDisplayFunc(codeControls);
+	
 }
 void playerMenuMenu(){
 	glutCreateMenu(playerColorMenu);
@@ -177,7 +181,9 @@ void cubeWindow(int button, int state, int x, int y){
 
 	glutSetWindow(windows[6]);
 }
-
+void pongWindow(int button, int state, int x, int y){
+	gameWindow(0);
+}
 void quadMenu(){
 	glutInitWindowSize(mWidth, mHeight);
     glutInitWindowPosition(100, 20);
@@ -196,12 +202,7 @@ void quadMenu(){
 	windows[1]=glutCreateSubWindow(windows[0],-mWidth/2,-mWidth/2,mWidth/2,mWidth/2);
 	initQuadMenu();
 	glutDisplayFunc(quadMenuDisplay);
-	glutCreateMenu(gameMenu);
-	glutAddMenuEntry("Classic",0);
-	glutAddMenuEntry("Doubles",1);
-	glutAddMenuEntry("3-way",2);
-	glutAddMenuEntry("Quad",3);
-	glutAttachMenu(0);
+	glutMouseFunc(pongWindow);
 
 	windows[2]=glutCreateSubWindow(windows[0],mWidth/2,-mWidth/2,mWidth/2,mWidth/2);
 	initQuadMenu();

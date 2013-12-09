@@ -166,10 +166,16 @@ void infoCubeKeys(unsigned char key, int x, int y){
 }
 
 void codeKeys(unsigned char key, int x, int y){
-	codePos[0]=-1;
-	codePos[1]=0;
-	//get next 30 lines of code
-
+	switch(key){
+	case ' ':
+		codePos[0]=-1;
+		codePos[1]=0;
+		fileSwitch();
+	default:
+		codePos[0]=-1;
+		codePos[1]=0;
+		nextLines();
+	}
 	glutTimerFunc(50,codeTimer,0);
 }
 

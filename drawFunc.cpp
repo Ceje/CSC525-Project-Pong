@@ -13,6 +13,7 @@ extern float infoCubeAngle[];
 extern bool infoCubeInside;
 extern int cameraTop;
 extern Pong g1;
+extern string codeText[];
 extern string blerbText[];
 extern string openFile;
 void initQuadMenu()
@@ -191,8 +192,18 @@ void menuControls(){
 void codeControls(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0,1,0);
-	string line="Left click anywhere to bring up the exit menu.";
-	glRasterPos2i(-490,100);
+	string line="Press 'Space' to switch files.";
+	glRasterPos2i(-490,400);
+	for(unsigned int i=0; i < line.length(); i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Press any other key to go to the next section of code.";
+	glRasterPos2i(-490,300);
+	for(unsigned int i=0; i < line.length(); i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	line="Left click anywhere to bring up the exit menu.";
+	glRasterPos2i(-490,200);
 	for(unsigned int i=0; i < line.length(); i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
@@ -201,23 +212,24 @@ void codeControls(){
 
 void codeDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(0,1,0);
 	glRasterPos2i(-450,475);
 	for(int j=0; j<=openFile.length();j++){
 			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,openFile[j]);	
 	}
 	int linePos[]={-450,425};
-	glColor3f(0,1,0);
+	
 	for(int i=0; i<codePos[1];i++){
 		glRasterPos2iv(linePos);
 
-		for(int j=0; j<=fillerText[i].length();j++){
-			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,fillerText[i][j]);	
+		for(int j=0; j<=codeText[i].length();j++){
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,codeText[i][j]);	
 		}
 		linePos[1]-=25;
 	}
 	glRasterPos2iv(linePos);
 	for(int j=0; j<=codePos[0];j++){
-			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,fillerText[codePos[1]][j]);	
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,codeText[codePos[1]][j]);	
 	}
 	glFlush();
 }

@@ -8,6 +8,7 @@
 #include "timers.h"
 #include "drawFunc.h"
 #include "Pong.h"
+#include "projIO.h"
 
 #ifdef __APPLE__
 #include <OpenGL/OpenGL.h>

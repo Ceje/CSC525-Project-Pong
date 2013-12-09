@@ -2,10 +2,18 @@
  * Authors:	    CJ Done, Jacob Allen
  *Course:	    CSC 525/625
  *Modified By:	    CJ Done, Jacob Allen
- *Last Mod Date:    
- *Description:	    
- *Notes:	    N/A
- *Files:	    hw4.cpp, IOFunc.h, IOFunc.cpp, drawFunc.h, drawFunc.cpp (hwProj.sln)
+ *CJ Done did: GUI, Menu Animations, Cube window, Code window.
+ *Jacob Allen did: Game engine, Game graphics, Game integration with Gui
+ *
+ *Description:	Program has 3 sections: Pong, cube, and code.
+ *Pong: a 3d playable version of pong for 2 players controlled by keyboard.
+ *cube: a 3d rendering of a cube with blerbs about computer science, keyboard control
+ *code: auto typing code is displayed, gives examples of what is done to code
+ *
+ *Files:	    ProjectGUImain.cpp, timers.h, timers.cpp, drawFunc.h, drawFunc.cpp,
+ *Files:		menus.h, menus.cpp, pong.h, pong.cpp, windows.h, windows.cpp,
+ *files:		ball.h, ball.cpp, paddle.h, paddle.cpp, projIO.h, projIO.cpp
+ *project file: DesignatedProjectProject.sln
  *IDE/Compiler:	    Visual Studio 2012 / GNU C++ Compiler g++ (with make)
  *Instructions for Compilation / Execution:
  *  Posix complient systems:
@@ -58,7 +66,10 @@ bool infoCubeTurning=false;
 bool infoCubeInside=false;
 int activeWindow=0;
 int cameraTop=0;
-string openFile="fillertext.notafile";
+int fileNum=0;
+fstream file;
+string openFile="proj.cpp";
+string codeText[30];
 string blerbText[]={
 "Companies that do not employ  computer programmers are      willing to contract their     services for as much as $100  to $400 per hour, according to Ask IT Career Coach, a career informational website."
 ,"According to the Indeed       website, starting salaries in the computer programming field in January 2012 range from   $59,000 to $112,000 per year. "
@@ -137,7 +148,7 @@ int main(int argc, char** argv)
     glutInitWindowSize(mWidth, mHeight);
 
 	g1 = Pong(mWidth, mHeight);
-
+	clearBuffer();
     glutInitWindowPosition(100, 20);
 	glutInitDisplayMode(GLUT_DEPTH);
 	lnCount=30;
