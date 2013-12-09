@@ -5,6 +5,7 @@ using namespace std;
 extern float cubeR;
 extern int windows[];
 extern int textPos[];
+extern int codePos[];
 extern int line;
 extern int lnCount;
 extern float exitR;
@@ -50,10 +51,35 @@ void textTimer(int i){
 		}
 		glutSetWindow(windows[3]);
 		quadMenuDisplay();
-		glutTimerFunc(1000,textTimer,0);
+		glutTimerFunc(50,textTimer,0);
+	
+		
 	}
 	
 	
+}
+
+void codeTimer(int i){
+	line=fillerText[codePos[1]].length();
+	codePos[0]++;
+	if(codePos[0]==line){
+		codePos[0]=-1;
+		codePos[1]++;
+		if(codePos[1]==lnCount){
+			//getnextsetoflines();
+		}
+		else{
+			glutSetWindow(windows[6]);
+			codeDisplay();
+			glutTimerFunc(50,codeTimer,0);
+		}
+	}
+	else{
+		glutSetWindow(windows[6]);
+		codeDisplay();
+		glutTimerFunc(50,codeTimer,0);
+	}
+
 }
 
 void wordSpinTimer(int i){

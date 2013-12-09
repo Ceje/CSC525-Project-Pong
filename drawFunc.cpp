@@ -6,6 +6,7 @@ extern int mWidth, mHeight;
 extern int windows[15];
 extern float cubeR;
 extern int textPos[];
+extern int codePos[];
 extern float exitR;
 extern string fillerText[];
 extern float infoCubeAngle[];
@@ -13,7 +14,7 @@ extern bool infoCubeInside;
 extern int cameraTop;
 extern Pong g1;
 extern string blerbText[];
-
+extern string openFile;
 void initQuadMenu()
 {
 	glEnable(GL_DEPTH_TEST);
@@ -174,7 +175,39 @@ void menuControls(){
 	}
 	glFlush();
 }
+void codeControls(){
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(0,1,0);
+	string line="Left click anywhere to bring up the exit menu.";
+	glRasterPos2i(-490,100);
+	for(unsigned int i=0; i < line.length(); i++){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
+	}
+	glFlush();
+}
 
+void codeDisplay(){
+	glClear(GL_COLOR_BUFFER_BIT);
+	glRasterPos2i(-450,475);
+	for(int j=0; j<=openFile.length();j++){
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,openFile[j]);	
+	}
+	int linePos[]={-450,425};
+	glColor3f(0,1,0);
+	for(int i=0; i<codePos[1];i++){
+		glRasterPos2iv(linePos);
+
+		for(int j=0; j<=fillerText[i].length();j++){
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,fillerText[i][j]);	
+		}
+		linePos[1]-=25;
+	}
+	glRasterPos2iv(linePos);
+	for(int j=0; j<=codePos[0];j++){
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12,fillerText[codePos[1]][j]);	
+	}
+	glFlush();
+}
 void quadMenuDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 		glColor3f(1,1,1);
@@ -362,16 +395,17 @@ void draw3dText(float tx,float ty,float tz,float ra, float rx,float ry,float rz,
 }
 
 void drawTimedText(){
-	int linePos[]={-450,400};
+	int linePos[]={-450,400,-40};
+	glColor3f(0,1,0);
 	for(int i=0; i<textPos[1];i++){
-		glRasterPos2iv(linePos);
+		glRasterPos3iv(linePos);
 
 		for(int j=0; j<=fillerText[i].length();j++){
 			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,fillerText[i][j]);	
 		}
 		linePos[1]-=25;
 	}
-	glRasterPos2iv(linePos);
+	glRasterPos3iv(linePos);
 	for(int j=0; j<=textPos[0];j++){
 			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,fillerText[textPos[1]][j]);	
 	}

@@ -21,6 +21,8 @@ void initQuadMenu();
 void emptyDisplay();
 void quadMenuDisplay();
 void quad();
+void codeControls();
+void codeDisplay();
 void doubles();
 void threeway();
 void classic();

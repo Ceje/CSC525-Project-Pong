@@ -13,7 +13,7 @@ extern float infoCubeOld[];
 extern bool infoCubeTurned;
 extern bool infoCubeTurning;
 extern Pong g1;
-
+extern int codePos[];
 void gameMenu(int i){
 	gameWindow(i);
 }
@@ -163,6 +163,14 @@ void infoCubeKeys(unsigned char key, int x, int y){
 			glutTimerFunc(25,infoCubeTurn,0);
 		}
 	}
+}
+
+void codeKeys(unsigned char key, int x, int y){
+	codePos[0]=-1;
+	codePos[1]=0;
+	//get next 30 lines of code
+
+	glutTimerFunc(50,codeTimer,0);
 }
 
 void emptyKeys(unsigned char key, int x, int y){}

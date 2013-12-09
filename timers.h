@@ -21,5 +21,6 @@ void textTimer(int i);
 void wordSpinTimer(int i);
 void infoCubeTurn(int i);
 void pongTimer(int i);
+void codeTimer(int i);
 
 #endif

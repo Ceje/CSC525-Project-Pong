@@ -20,21 +20,23 @@ void codeWindow(int button, int state, int x, int y){
 	glutInitWindowSize(mWidth, mHeight);
 	glutInitWindowPosition(100,20);
 	windows[6]=glutCreateWindow("FREE SAMPLES!");
-	initQuadMenu();
-	glutDisplayFunc(emptyDisplay);
+	initControlMenu();
+	glutDisplayFunc(codeDisplay);
+	glutKeyboardFunc(codeKeys);
 	glutCreateMenu(exitMenu);
 	glutAddMenuEntry("Exit to menu",2);
 	glutAddMenuEntry("Return to program",1);
 	glutAddMenuEntry("Exit",0);
 	glutAttachMenu(0);
 	closeQuadMenu();
+	glutTimerFunc(500,codeTimer,0);
 
 	glutDestroyWindow(windows[12]);
 	glutInitWindowSize(mWidth/2, mHeight/4);
     glutInitWindowPosition(1200, 20);
 	windows[12]=glutCreateWindow("Controls!");
 	initControlMenu();
-	glutDisplayFunc(cubeControls);
+	glutDisplayFunc(codeControls);
 }
 void playerMenuMenu(){
 	glutCreateMenu(playerColorMenu);
