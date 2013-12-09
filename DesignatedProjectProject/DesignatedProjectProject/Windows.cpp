@@ -39,7 +39,9 @@ void codeWindow(int button, int state, int x, int y){
 
 	
 }
+
 void playerMenuMenu(){
+
 	glutCreateMenu(playerColorMenu);
 	glutAddMenuEntry("Black",0);
 	glutAddMenuEntry("White",1);

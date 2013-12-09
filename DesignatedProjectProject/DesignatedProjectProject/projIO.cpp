@@ -6,40 +6,44 @@ extern string openFile;
 extern string codeText[];
 extern int fileNum;
 void nextLines(){
-	if(file.eof()==0){
-		clearBuffer();
-		for(int i=0;i<30;i++){
-			if(file.eof()==0){
-				getline(file,codeText[i]);
+	if(file.is_open()){
+		if(file.eof()==0){
+			clearBuffer();
+			for(int i=0;i<30;i++){
+				if(file.eof()==0){
+					getline(file,codeText[i]);
+				}
 			}
 		}
-	}
-	else{
-		fileSwitch();
+		else{
+			fileSwitch();
+		}
 	}
 }
 
 void fileSwitch(){
-	file.close();
-	fileNum++;
-	if(fileNum>3){
-		fileNum=0;
+	if(file.is_open()){
+		file.close();
+		fileNum++;
+		if(fileNum>3){
+			fileNum=0;
+		}
+		switch(fileNum){
+		case 0:
+			openFile="menus.cpp";
+			break;
+		case 1:
+			openFile="drawFunc.cpp";
+			break;
+		case 2:
+			openFile="Ball.cpp";
+			break;
+		case 3:
+			openFile="Paddle.cpp";
+		}
+		clearBuffer();
+		initCode();
 	}
-	switch(fileNum){
-	case 0:
-		openFile="menus.cpp";
-		break;
-	case 1:
-		openFile="drawFunc.cpp";
-		break;
-	case 2:
-		openFile="Ball.cpp";
-		break;
-	case 3:
-		openFile="Paddle.cpp";
-	}
-	clearBuffer();
-	initCode();
 }
 
 void clearBuffer(){
