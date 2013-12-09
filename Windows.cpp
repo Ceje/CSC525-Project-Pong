@@ -103,7 +103,7 @@ void gameWindow(int gamemode){
 	glutInitWindowSize(mWidth, mHeight);
 	glutInitWindowPosition(100,20);
 	windows[6]=glutCreateWindow("PLAYBALL!");
-	initQuadMenu();
+	initPong();
 	
 	switch(gamemode){
 	case 1:

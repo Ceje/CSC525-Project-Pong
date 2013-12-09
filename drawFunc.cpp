@@ -23,6 +23,14 @@ void initQuadMenu()
     glutIgnoreKeyRepeat(1);		//Tells glut to ignore key repeat from holding down a key.
     //glEnable(GL_DEPTH_TEST);
 }
+void initPong()
+{
+	glClearColor(0, 0, 0, 0);
+	//glOrtho(-500, 500, -500, 500, -500, 500);
+	glFrustum(-500, 500, -500, 500, 125, 250);
+	glutIgnoreKeyRepeat(1);
+	gluLookAt(5, -5, 150, 0, 0, 0, 0, 1, 0);
+}
 void rotateCameraLeft(){
 	int distance = 1000;
 	cameraTop++;
@@ -77,10 +85,12 @@ void playerMenuInit(){
 	glClearColor(0.9, 0.9, 0.9, 0.0);
 	gluOrtho2D(-500,500,-500,500);
 }
+
 void initControlMenu(){
 	glClearColor(0,0,0,0);
 	gluOrtho2D(-500,500,-500,500);
 }
+
 void initInfoCube(){
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(1,1,1,0);
@@ -93,6 +103,7 @@ void emptyDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glFlush();
 }
+
 void cubeControls(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0,1,0);
@@ -118,6 +129,7 @@ void cubeControls(){
 	}
 	glFlush();
 }
+
 void gameControls(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0,1,0);
@@ -165,6 +177,7 @@ void gameControls(){
 	*/
 	glFlush();
 }
+
 void menuControls(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0,1,0);
@@ -242,6 +255,7 @@ void quadMenuDisplay(){
 		}
 	glFlush();
 }
+
 void timerDisplay(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	
@@ -259,20 +273,23 @@ void timerDisplay(){
 		glVertex2i(mWidth/2,0);
 	glEnd();
 	string label="TIME";
-	string time="0:00";
+	char numstr[21];
+	sprintf(numstr, "%d", g1.getTime());
+	string time= "";
+	time = time + numstr;
 	glRasterPos2i(-100,200);
 	for(unsigned int i=0;i<label.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, label[i]);
 	}
 	glColor3f(0,1,0);
 	glRasterPos2i(time.length()*-16,-300);
-	/*
+	
 	for(unsigned int i=0;i<time.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, time[i]);
 	}
-	*/
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
-	glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '0');
+
+	//glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '4');
+	//glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, '0');
 
 	glFlush();
 }
@@ -505,10 +522,15 @@ void doubles(){
     glColor3f(1.0, 1.0, 1.0);
     glBegin(GL_QUADS);
 
-	glVertex2i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"));
-	glVertex2i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"));
-	glVertex2i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"));
-	glVertex2i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"));
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 0);
+
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 20);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 20);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 20);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 20);
 
 	glVertex2i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"));
 	glVertex2i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"));
@@ -536,19 +558,62 @@ void quad(){
 }
 
 void classic(){
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glPointSize(1);
     glLineWidth(1);
 
+	//gluLookAt(10, 15, 50, 0, 0, 0, 0, 1, 0);
+
     glColor3f(1.0, 1.0, 1.0);
     glBegin(GL_QUADS);
 
-	glVertex2i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"));
-	glVertex2i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"));
-	glVertex2i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"));
-	glVertex2i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"));
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 0);
+	glEnd();
 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glEnable(GL_POLYGON_OFFSET_LINE);
+	glPolygonOffset(-1.f, -1.f);
+	glColor3f(0.0, 1.0, 0.0);
+
+	glBegin(GL_QUADS);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 0);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 0);
+	glEnd();
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glDisable(GL_POLYGON_OFFSET_LINE);
+	glColor3f(1.0, 1.0, 1.0);
+
+	glBegin(GL_QUADS);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 5);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 5);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 5);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 5);
+	glEnd();
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glEnable(GL_POLYGON_OFFSET_LINE);
+	glPolygonOffset(-1.f, -1.f);
+	glColor3f(0.0, 1.0, 0.0);
+
+	glBegin(GL_QUADS);
+	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 5);
+	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 5);
+	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 5);
+	glVertex3i(g1.p1.getVtx("bt", "x"), g1.p1.getVtx("bt", "y"), 5);
+	glEnd();
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glDisable(GL_POLYGON_OFFSET_LINE);
+	glColor3f(1.0, 1.0, 1.0);
+
+	glBegin(GL_QUADS);
 	glVertex2i(g1.p2.getVtx("ft", "x"), g1.p2.getVtx("ft", "y"));
 	glVertex2i(g1.p2.getVtx("fb", "x"), g1.p2.getVtx("fb", "y"));
 	glVertex2i(g1.p2.getVtx("bb", "x"), g1.p2.getVtx("bb", "y"));

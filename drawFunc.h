@@ -18,6 +18,7 @@
 #endif
 
 void initQuadMenu();
+void initPong();
 void emptyDisplay();
 void quadMenuDisplay();
 void quad();

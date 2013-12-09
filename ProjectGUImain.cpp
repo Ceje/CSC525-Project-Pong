@@ -139,6 +139,7 @@ int main(int argc, char** argv)
 	g1 = Pong(mWidth, mHeight);
 
     glutInitWindowPosition(100, 20);
+	glutInitDisplayMode(GLUT_DEPTH);
 	lnCount=30;
     quadMenu();
 	

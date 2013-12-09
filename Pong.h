@@ -9,6 +9,7 @@ class Pong
     int clock;
     int yBound;
     int xBound;
+	int ticks;
 
     public:
 	Paddle p1;
@@ -22,6 +23,8 @@ class Pong
 	Pong(Paddle p1, Paddle p2, Ball b1, int xB, int yB);
 
 	Paddle getPaddle(std::string st);
+	int getTime();
+	void clockTick();
 	void play();
 };
 #endif

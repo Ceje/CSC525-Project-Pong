@@ -127,13 +127,16 @@ void pongTimer(int i)
 	{
 		glutSetWindow(windows[6]);
 		g1.play();
+		g1.clockTick();
 		classic();
 		//std::cout << "pong" << std::endl;
 		glutSetWindow(windows[7]);
 		playerMenuDisplay();
 		glutSetWindow(windows[8]);
 		playerMenuDisplay();
-		
+		glutSetWindow(windows[11]);
+		timerDisplay();
+		glutSetWindow(windows[6]);
 		glutTimerFunc(10, pongTimer, 0);
 	}
 	else
