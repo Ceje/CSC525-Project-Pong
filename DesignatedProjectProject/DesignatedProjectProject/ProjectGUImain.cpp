@@ -67,6 +67,7 @@ bool infoCubeInside=false;
 int activeWindow=0;
 int cameraTop=0;
 int fileNum=0;
+int controls[4]={2,1,3,1};
 fstream file;
 string openFile="menus.cpp";
 string codeText[30];

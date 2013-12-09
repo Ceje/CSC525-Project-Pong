@@ -14,54 +14,12 @@ extern bool infoCubeTurned;
 extern bool infoCubeTurning;
 extern Pong g1;
 extern int codePos[];
+extern int controls[];
 void gameMenu(int i){
 	gameWindow(i);
 }
 void playerColorMenu(int i){
-	int winID=glutGetWindow();
-	float color[3];
-	switch(i){
-	case 0:
-		color[0]=0;
-		color[1]=0;
-		color[2]=0;
-		break;
-	case 1:
-		color[0]=1;
-		color[1]=1;
-		color[2]=1;
-		break;
-	case 2:
-		color[0]=1;
-		color[1]=0;
-		color[2]=0;
-		break;
-	case 3:
-		color[0]=0;
-		color[1]=1;
-		color[2]=0;
-		break;
-	case 4:
-		color[0]=0;
-		color[1]=0;
-		color[2]=1;
-		break;
-	case 5:
-		//getCustomColor
-		break;
-	}
-	if(winID=windows[7]){
-		//playerColor[0]=color;
-	}
-	if(winID=windows[8]){
-		//playerColor[1]=color;
-	}
-	if(winID=windows[9]){
-		//playerColor[2]=color;
-	}
-	if(winID=windows[10]){
-		//playerColor[3]=color;
-	}
+
 }
 
 void exitMenu(int i){
@@ -80,24 +38,42 @@ void exitMenu(int i){
 		exit(0);
 	}
 }
-
+void removeControl(int i){
+	for(int j=0; j<4;j++){
+		if(controls[j]%i==0){
+			controls[j]=controls[j]/i;
+			
+		}
+		//cout<< controls[j]<<":";
+	}
+	cout<<"\n";
+}
+void addControl(int i, int p){
+	controls[i]=controls[i]*p;
+	//cout<<"control "<<i<<": "<<controls[i];
+}
 void playerControlMenu(int i){
 	int winID=glutGetWindow();
 	//bare integer is player number
 	//i is control mode ranges from 0 to 3 
 	//i=4 reserved for custom keys
-	if(winID=windows[7]){
-		//playerControlChange(0,i)
+	if(winID==windows[7]){
+		removeControl(2);
+		addControl(i, 2);
 	}
-	if(winID=windows[8]){
-		//playerControlChange(1,i);
+	else if(winID==windows[8]){
+		removeControl(3);
+		addControl(i, 3);
 	}
-	if(winID=windows[9]){
+	else if(winID=windows[9]){
 		//playerControlChange(2,i);
 	}
-	if(winID=windows[10]){
+	else if(winID=windows[10]){
 		//playerControlChange(3,i);
 	}
+	glutSetWindow(windows[12]);
+	gameControls();
+	glutSetWindow(windows[6]);
 }
 
 void infoCubeKeys(unsigned char key, int x, int y){
@@ -181,36 +157,55 @@ void codeKeys(unsigned char key, int x, int y){
 
 void emptyKeys(unsigned char key, int x, int y){}
 
+void paddleDirChange(int i, int j){
+	if(i>-1){
+		if(controls[i]%2==0){
+			g1.p1.setDir(j);
+		}
+		if(controls[i]%3==0){
+			g1.p2.setDir(j);
+		}
+	}
+}
 
 void handleKeyUp(unsigned char key, int x, int y)
 {
+	int i=0;
     switch (key)
     {
 	case 'w':
-	    {
-		g1.p1.setDir(0);
-		break;
-	    }
 	case 's':
 	    {
-		g1.p1.setDir(0);
+			i=0;
 		break;
 	    }
-	case 'o':
+	case 'a':
+	case 'd':
 	    {
-		g1.p2.setDir(0);
+		i=1;
 		break;
 	    }
+	case 'i':
+	case 'k':
+	    {
+		i=2;
+		break;
+	    }
+	case 'j':
 	case 'l':
 	    {
-		g1.p2.setDir(0);
+		i=3;
 		break;
 	    }
     }
+	paddleDirChange(i,0);
 }
+
 
 void handleKeypress(unsigned char key, int x, int y)
 {
+	int i=-1;
+	int j=-1;
     switch (key)
     {
 	case 27: //Escape Key
@@ -219,28 +214,37 @@ void handleKeypress(unsigned char key, int x, int y)
 		exit(0); //Exit the program
 	    }
 	case 'w':
-	    {
-		g1.p1.setDir(1);
-		break;
-	    }
+		j=1;
 	case 's':
 	    {
-		g1.p1.setDir(-1);
+			i=0;
 		break;
 	    }
-	case 'o':
+	case 'a':
+		j=1;
+	case 'd':
 	    {
-		g1.p2.setDir(1);
+		i=1;
 		break;
 	    }
+	case 'i':
+		j=1;
+	case 'k':
+	    {
+		i=2;
+		break;
+	    }
+	case 'j':
+		j=1;
 	case 'l':
 	    {
-		g1.p2.setDir(-1);
+		i=3;
 		break;
 	    }
 	default:
 		g1.b1.setSpeed(g1.b1.getoSpeed());
 		//std::cout << key << std::endl;
     }
+	paddleDirChange(i,j);
     //drawScene();
 }

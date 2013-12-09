@@ -16,6 +16,7 @@ extern Pong g1;
 extern string codeText[];
 extern string blerbText[];
 extern string openFile;
+extern int controls[];
 void initQuadMenu()
 {
 	glEnable(GL_DEPTH_TEST);
@@ -132,7 +133,30 @@ void cubeControls(){
 	}
 	glFlush();
 }
-
+string getPlayerControls(int i){
+	int c;
+	string control;
+	for(int j=0;j<4;j++){
+		if(controls[j]%i==0){
+			c=j;
+		}
+	}
+	switch(c){
+	case 0:
+		control = "'w'= up, 's' = down.";
+		break;
+	case 1:
+		control = "'a'= up, 'd' = down.";
+		break;
+	case 2:
+		control = "'i'= up, 'k' = down.";
+		break;
+	case 3:
+		control = "'j'= up, 'l' = down.";
+		break;
+	}
+	return control;
+}
 void gameControls(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0,1,0);
@@ -156,17 +180,18 @@ void gameControls(){
 	glRasterPos2i(-450,100);
 	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
-	}
-	line="Player 1 controls:"+getPlayerControls(0);
+	}*/
+	line="Player 1 controls: "+getPlayerControls(2);
 	glRasterPos2i(-450,0);
 	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
-	line="Player 2 controls:"+getPlayerControls(1);
+	line="Player 2 controls: "+getPlayerControls(3);
 	glRasterPos2i(-450,-100);
 	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
+	/*
 	line="Player 3 controls:"+getPlayerControls(2);
 	glRasterPos2i(-450,-200);
 	for(unsigned int i=0;i<line.length();i++){
