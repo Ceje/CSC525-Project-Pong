@@ -470,6 +470,11 @@ void classic(){
 	glColor3f(0.0, 1.0, 0.0);
 
 	glBegin(GL_QUADS);
+	glVertex3i(-500, 500, 0);
+	glVertex3i(-500, -500, 0);
+	glVertex3i(500, -500, 0);
+	glVertex3i(500, 500, 0);
+
 	glVertex3i(g1.p1.getVtx("ft", "x"), g1.p1.getVtx("ft", "y"), 0);
 	glVertex3i(g1.p1.getVtx("fb", "x"), g1.p1.getVtx("fb", "y"), 0);
 	glVertex3i(g1.p1.getVtx("bb", "x"), g1.p1.getVtx("bb", "y"), 0);
