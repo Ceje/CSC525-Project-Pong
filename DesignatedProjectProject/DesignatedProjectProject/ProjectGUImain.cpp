@@ -2,8 +2,8 @@
  * Authors:	    CJ Done, Jacob Allen
  *Course:	    CSC 525/625
  *Modified By:	    CJ Done, Jacob Allen
- *CJ Done did: GUI, Menu Animations, Cube window, Code window.
- *Jacob Allen did: Game engine, Game graphics, Game integration with Gui
+ *CJ Done did: GUI, Menu Animations, Cube window, Code window. 53%
+ *Jacob Allen did: Game engine, Game graphics, Game integration with Gui. 47%
  *
  *Description:	Program has 3 sections: Pong, cube, and code.
  *Pong: a 3d playable version of pong for 2 players controlled by keyboard.
