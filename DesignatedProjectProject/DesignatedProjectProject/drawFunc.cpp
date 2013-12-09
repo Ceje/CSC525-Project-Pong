@@ -191,18 +191,17 @@ void gameControls(){
 	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
-	/*
-	line="Player 3 controls:"+getPlayerControls(2);
+
+	line="Press 'e' to start the round.";
 	glRasterPos2i(-450,-200);
 	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
-	line="Player 4 controls:"+getPlayerControls(3);
+	line="First player to 10 rounds wins!";
 	glRasterPos2i(-450,-300);
 	for(unsigned int i=0;i<line.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24,line[i]);
 	}
-	*/
 	glFlush();
 }
 
