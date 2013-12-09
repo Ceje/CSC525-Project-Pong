@@ -13,6 +13,9 @@ Paddle::Paddle(int x, int y, int l, int b, int s, int d, int scr)
 	speed = s;
 	dir = d;
 	score = scr;
+	red =1;
+	green =1;
+	blue = 1;
 }
 
 void Paddle::reset()
@@ -163,4 +166,34 @@ int Paddle::getVtx(std::string crn, std::string axs)
     }
     
     return -1;
+}
+
+void Paddle::setRed(int r)
+{
+	red = r;
+}
+
+int Paddle::getRed()
+{
+	return red;
+}
+
+void Paddle::setGreen(int g)
+{
+	green =g;
+}
+
+int Paddle::getGreen()
+{
+	return green;
+}
+
+void Paddle::setBlue(int b)
+{
+	blue = b;
+}
+
+int Paddle::getBlue()
+{
+	return blue;
 }

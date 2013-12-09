@@ -15,8 +15,9 @@ class Paddle
 	int speed;
 	int dir;
 	int score;
-	//bool uMot;
-	//bool dMot;
+	int red;
+	int green;
+	int blue;
 
 	public:
 		//Paddle();
@@ -37,5 +38,11 @@ class Paddle
 		void goal();
 		int getScore();
 		int getVtx(std::string crn, std::string axs);
+		void setRed(int r);
+		int getRed();
+		void setGreen(int g);
+		int getGreen();
+		void setBlue(int b);
+		int getBlue();
 };
 #endif

@@ -631,7 +631,7 @@ void classic(){
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glDisable(GL_POLYGON_OFFSET_LINE);
-	glColor3f(1.0, 1.0, 1.0);
+	glColor3f((float)g1.p1.getRed(), (float)g1.p1.getGreen(), (float)g1.p1.getBlue());
 
 	glBegin(GL_QUADS);
 	
@@ -738,7 +738,7 @@ void classic(){
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glDisable(GL_POLYGON_OFFSET_LINE);
-	glColor3f(1.0, 1.0, 1.0);
+	glColor3f((float)g1.p2.getRed(), (float)g1.p2.getGreen(), (float)g1.p2.getBlue());
 
 	glBegin(GL_QUADS);
 	

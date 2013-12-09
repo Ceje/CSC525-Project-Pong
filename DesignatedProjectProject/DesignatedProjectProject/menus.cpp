@@ -19,7 +19,61 @@ void gameMenu(int i){
 	gameWindow(i);
 }
 void playerColorMenu(int i){
+	int winID = glutGetWindow();
+	int r, g, b;
 
+	switch(i)
+	{
+	case 0:
+		{
+			r = 0;
+			g = 0;
+			b = 0;
+			break;
+		}
+	case 1:
+		{
+			r = 1;
+			g = 1;
+			b = 1;
+			break;
+		}
+	case 2:
+		{
+			r = 1;
+			g = 0;
+			b = 0;
+			break;
+		}
+	case 3:
+		{
+			r = 0;
+			g = 0;
+			b = 1;
+			break;
+		}
+	case 4:
+		{
+			r = 0;
+			g = 1;
+			b = 0;
+			break;
+		}
+	}
+
+	if(winID == windows[7])
+	{
+		g1.p1.setRed(r);
+		g1.p1.setGreen(g);
+		g1.p1.setBlue(b);
+	}
+
+	if(winID == windows[8])
+	{
+		g1.p2.setRed(r);
+		g1.p2.setGreen(g);
+		g1.p2.setBlue(b);
+	}
 }
 
 void exitMenu(int i){
