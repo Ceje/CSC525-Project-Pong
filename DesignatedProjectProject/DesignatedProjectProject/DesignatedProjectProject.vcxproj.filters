@@ -15,57 +15,57 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Ball.cpp">
+    <ClCompile Include="Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\drawFunc.cpp">
+    <ClCompile Include="drawFunc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\menus.cpp">
+    <ClCompile Include="menus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Paddle.cpp">
+    <ClCompile Include="Paddle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Pong.cpp">
+    <ClCompile Include="Pong.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ProjectGUImain.cpp">
+    <ClCompile Include="ProjectGUImain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\timers.cpp">
+    <ClCompile Include="projIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Windows.cpp">
+    <ClCompile Include="timers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\projIO.cpp">
+    <ClCompile Include="Windows.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Ball.h">
+    <ClInclude Include="Ball.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\drawFunc.h">
+    <ClInclude Include="drawFunc.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\menus.h">
+    <ClInclude Include="menus.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Paddle.h">
+    <ClInclude Include="Paddle.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Pong.h">
+    <ClInclude Include="Pong.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\timers.h">
+    <ClInclude Include="projIO.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\windows.h">
+    <ClInclude Include="timers.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\projIO.h">
+    <ClInclude Include="windows.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
