@@ -1,10 +1,5 @@
 #include "Pong.h"
 
-//Work out ball paddle interaction bugs
-//Work on clock time
-//Stop being lazy!
-//Make accessors and mutators for objects (make paddles and ball private again) not very feasable
-//add functionality for 4 player version
 //Basic AI for single player and demo purposes
 
 Pong::Pong()
@@ -20,7 +15,7 @@ Pong::Pong(int xB, int yB)
 {
 	xBound = xB;
 	yBound = yB;
-	clock = 40;
+	clock = 20;
 	ticks = 0;
 	p1 = Paddle((-xBound/2)+30, 0, yBound/6, yBound, 4, 0, 0);
 	p2 = Paddle((xBound/2)-30, 0, yBound/6, yBound, 4, 0, 0);
@@ -32,7 +27,7 @@ Pong::Pong(Paddle in1, Paddle in2, Ball bin1, int xB, int yB)
     p1 = in1;
     p2 = in2;
     b1 = bin1;
-    clock = 0;
+    clock = 20;
     xBound = xB;
     yBound = yB;
 }
@@ -54,11 +49,24 @@ int Pong::getTime()
 
 void Pong::clockTick()
 {
-	ticks++;
-
-	if(ticks % 100 == 0)
+	if(b1.getSpeed() != 0)
 	{
-		clock --;
+		ticks++;
+
+		if(ticks % 100 == 0)
+		{
+
+			clock --;
+			if(clock == 0)
+			{
+				b1.reset();
+				b1.setoSpeed(b1.getoSpeed()*1.5);
+				p1.setSpeed(p1.getSpeed()*1.4);
+				p2.setSpeed(p2.getSpeed()*1.4);
+				//std::cout << b1.getSpeed() << std::endl;
+				clock=20;
+			}
+		}
 	}
 }
 
@@ -73,6 +81,18 @@ void Pong::play()
 	p1.reset();
 	p2.reset();
     }
+
+	if(p1.getScore() == 10)
+	{
+		clock = -1;
+		b1.setoSpeed(0);
+	}
+
+	if(p2.getScore() == 10)
+	{
+		clock = -2;
+		b1.setoSpeed(0);
+	}
 
     if(b1.getX()-b1.getRad() <= p1.getX() && b1.getY()-b1.getRad() < p1.getY()+p1.getL()/2 && b1.getY()+b1.getRad() > p1.getY()-p1.getL()/2)
     {

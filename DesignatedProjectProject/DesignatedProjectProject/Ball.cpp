@@ -9,6 +9,7 @@ Ball::Ball()
 	bX=0;
 	bY=0;
 	speed=0;
+	oSpeed = 3;
 	xBound=0;
 	yBound=0;
 	xDir=0;
@@ -21,6 +22,7 @@ Ball::Ball(int x, int y, int xb, int yb, int r)
 	bX = x;
 	bY = y;
 	speed = 0;
+	oSpeed = 3;
 	xBound = xb/2;
 	yBound = yb/2;
 	xDir = 0;
@@ -55,6 +57,16 @@ void Ball::setSpeed(int s)
 int Ball::getSpeed()
 {
 	return speed;
+}
+
+void Ball::setoSpeed(int ospd)
+{
+	oSpeed = ospd;
+}
+
+int Ball::getoSpeed()
+{
+	return oSpeed;
 }
 
 void Ball::reset()

@@ -147,7 +147,7 @@ int main(int argc, char** argv)
     glutInit(& argc, argv);
     glutInitWindowSize(mWidth, mHeight);
 
-	g1 = Pong(mWidth, mHeight*3/4);
+	//g1 = Pong(mWidth, mHeight*3/4);
 	clearBuffer();
 	initCode();
 	nextLines();

@@ -10,6 +10,7 @@ class Ball
 	int bX;
 	int bY;
 	int speed;
+	int oSpeed;
 	int xBound;
 	int yBound;
 	int xDir;
@@ -26,6 +27,8 @@ class Ball
 		void move();
 		int getSpeed();
 		void setSpeed(int s);
+		int getoSpeed();
+		void setoSpeed(int ospd);
 		int getDir(char ax);
 		void changeDir(char ax);
 		void reset();

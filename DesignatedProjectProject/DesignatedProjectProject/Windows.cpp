@@ -5,6 +5,7 @@ using namespace std;
 extern int mWidth, mHeight;
 extern int windows[15];
 extern int activeWindow;
+extern Pong g1;
 
 void controlList(int i){
 
@@ -124,6 +125,7 @@ void gameWindow(int gamemode){
 		break;
 	default:
 		//default
+		g1 = Pong(mWidth, mHeight*3/4);
 		glutDisplayFunc(classic);
 		classicGUI();
 		

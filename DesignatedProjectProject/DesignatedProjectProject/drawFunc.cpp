@@ -288,9 +288,20 @@ void timerDisplay(){
 	glEnd();
 	string label="TIME";
 	char numstr[21];
-	sprintf(numstr, "%d", g1.getTime());
 	string time= "";
-	time = time + numstr;
+	if(g1.getTime() == -1)
+	{
+		time = "Player 1 Wins!";
+	}
+	else if(g1.getTime() == -2)
+	{
+		time = "Player 2 Wins!";
+	}
+	else
+	{
+		sprintf(numstr, "%d", g1.getTime());
+		time = time + numstr;
+	}
 	glRasterPos2i(-100,200);
 	for(unsigned int i=0;i<label.length();i++){
 		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, label[i]);

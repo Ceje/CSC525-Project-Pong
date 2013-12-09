@@ -239,7 +239,7 @@ void handleKeypress(unsigned char key, int x, int y)
 		break;
 	    }
 	default:
-		g1.b1.setSpeed(3);
+		g1.b1.setSpeed(g1.b1.getoSpeed());
 		//std::cout << key << std::endl;
     }
     //drawScene();
