@@ -7,7 +7,7 @@ Paddle::Paddle(int x, int y, int l, int b, int s, int d, int scr)
 {
 	pX = x;
 	pY = y;
-	bound = b;
+	bound = b/2;
 	pLen = l;
 	initY = y;
 	speed = s;
@@ -25,11 +25,11 @@ void Paddle::reset()
 
 void Paddle::move()
 {
-	if(pY >= -bound && dir < 0)
+	if(pY-pLen/2 >= -bound && dir < 0)
 	{
 		pY += speed * dir;
 	}
-	else if(pY <= bound && dir > 0)
+	else if(pY+pLen/2 <= bound && dir > 0)
 	{
 		pY += speed * dir;
 	}
